@@ -143,7 +143,7 @@ authrouter.post("/login",async(req,res,next)=>{
     }
     const token= user.generateTokens()
 
-    res.status(201).send(token)
+    res.status(201).send(`TOKEN=${token} USERID =${user._id}`)
 }
 }
   })
