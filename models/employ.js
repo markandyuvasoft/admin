@@ -8,9 +8,14 @@ const employSchema=new mongoose.Schema({
         type:String,
     
         },
-        
+    age:{
+        type:Number
+    },
+    city:{
+        type:String
+    },  
     salary:{
-        type:String,
+        type:Number,
         },
 })
 
