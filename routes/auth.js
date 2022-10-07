@@ -52,7 +52,7 @@ const sentverifymail = async(name,email,user_id)=>{
         });
     } catch (error) {
      
-        res.send("error")
+        res.status(400).send("error")
     }
 }
 
@@ -60,7 +60,7 @@ const sentverifymail = async(name,email,user_id)=>{
 
 authrouter.get("/profile", checkauth, async (req, res) => {  
     const profile = await User.findById(req.user._id).select('-password')// chye to employ wali details find krwao
-    res.send(profile)
+    res.status(200).send(profile)
 })
   
 authrouter.get("/verify", async(req,res)=>{
@@ -69,7 +69,7 @@ authrouter.get("/verify", async(req,res)=>{
  
  res.status(200).send({message:"welcome your email is verify"})
     } catch (error) {
-        res.send("err")
+        res.status(400).send("err")
     }
 })
 
@@ -107,7 +107,7 @@ authrouter.post("/register", async (req, res) => {
   
         const token = user.generateTokens()
    
-        res.status(200).send({ message: "welcome....successful register please check your mail and varify your email" })
+        res.status(200).send({ message: "welcome user please check your mail and varify your email" })
        
         sentverifymail(req.body.name, req.body.email, userdata1._id);  // mail bnaya hai vafication ke ley
       }
