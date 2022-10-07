@@ -26,6 +26,10 @@ const userSchema=new mongoose.Schema({
       type:Boolean,
       default:false
     },
+    isVarified:{
+        type:Number,
+        default:0,
+    }
 })
 
 userSchema.methods.generateTokens = function (){

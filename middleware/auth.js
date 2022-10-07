@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 
 const checkauth=(req,res,next)=>{
 
-    const token = req.header('x-auth-token')
+    const token = req.header('Authorization')
 
     if(!token){
 
