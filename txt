@@ -1,0 +1,50 @@
+//post method user register HIDE PASSWORD start......................................
+// userrouter.post("/user/post",async(req,res,next)=>{
+
+//     let user = await User.findOne({email:req.body.email})
+
+//     if(user){
+
+//     return res.status(404).send('usernot found in database')
+    
+// }
+
+//     user = new User(_.pick(req.body,['name','email','password']))
+  
+//     await user.save()
+
+//     res.status(201).send(_.pick(user,['_id','name','email']))
+//   })
+//post method user register HIDE PASSWORD end......................................
+
+
+//post method user register HIDE PASSWORD and BCRYPT PASSWORD START......................................
+// userrouter.post("/register",async(req,res,next)=>{
+
+//     let user = await User.findOne({email:req.body.email})
+ 
+//     if(user){
+
+//     return res.status(404).send('user already exists in database')
+    
+// }  else{
+    
+//     user = new User(_.pick(req.body,['name','email','password','isAdmin']))
+  
+//     const saltRounds =10
+
+//     const salt = await bcrypt.genSalt(saltRounds);
+
+//     user.password = await bcrypt.hash(user.password,saltRounds);
+
+//     await user.save()
+
+//     const token= user.generateTokens()
+
+
+//     res.header('x-auth-token',token).send(_.pick(user,['_id','name','email','isAdmin']))
+// }
+
+//   })
+//post method user register HIDE PASSWORD and BCRYPT PASSWORD end......................................
+
