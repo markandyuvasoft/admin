@@ -7,7 +7,7 @@ const checkauth=(req,res,next)=>{
 
     if(!token){
 
-        return res.status(401).send('only auth person')
+        return res.status(401).send({error:'only authorised person'})
     }
 
     try{
@@ -20,7 +20,7 @@ const checkauth=(req,res,next)=>{
 
     }catch(e){
 
-        return res.status(401).send('wrong token')
+        return res.status(401).send({error:'wrong token'})
     }
 
 }
