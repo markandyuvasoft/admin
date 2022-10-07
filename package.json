@@ -30,7 +30,8 @@
     "mongoose": "^6.6.1",
     "mongoose-unique-validator": "^3.1.0",
     "nodemailer": "^6.8.0",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "randomstring": "^1.2.2"
   },
   "keywords": []
 }

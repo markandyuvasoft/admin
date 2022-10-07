@@ -20,6 +20,10 @@ const userSchema=new mongoose.Schema({
     cpassword:{
         type:String
     },
+    token:{
+        type:String,
+        default:''
+    },
 
     isAdmin:
     {
