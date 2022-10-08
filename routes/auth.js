@@ -75,9 +75,9 @@ authrouter.get("/verify", async(req,res)=>{
 
 authrouter.post("/register", async (req, res) => {
   
-    const { name, email, password, cpassword } = req.body
+    const { name, email, password, cpassword,phone,gender, address} = req.body
   
-    if (!name || !email || !password || !cpassword) {
+    if (!name || !email || !password || !cpassword || !phone || !gender || !address) {
   
       return res.status(422).send({ error: "plz fill the field properly" })
     }
@@ -86,7 +86,7 @@ authrouter.post("/register", async (req, res) => {
       const spassword = await secure(req.body.password)
   
       const user = new User({
-        name, email,
+        name, email,phone,gender,address,
         password: spassword,
         cpassword: spassword,
   })

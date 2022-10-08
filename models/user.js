@@ -16,8 +16,16 @@ const userSchema=new mongoose.Schema({
     password:{
         type:String
     },
-
     cpassword:{
+        type:String
+    },
+    phone:{
+        type:Number
+    },
+    gender:{
+        type:String
+    },
+    address:{
         type:String
     },
     token:{
