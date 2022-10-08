@@ -107,7 +107,7 @@ authrouter.post("/register", async (req, res) => {
   
         const token = user.generateTokens()
    
-        res.status(200).send({ message: "welcome user please check your mail and varify your email" })
+        res.status(200).send({ message: "please check your mail and varify" })
        
         sentverifymail(req.body.name, req.body.email, userdata1._id);  // mail bnaya hai vafication ke ley
       }
