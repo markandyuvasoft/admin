@@ -7,7 +7,7 @@ import User from "../models/user.js"
 const router=express.Router()
 
 //post method start......................................
-router.post("/post",(req,res,next)=>{
+router.post("/post",checkauth,(req,res,next)=>{
 
     const { name, age, city,salary } = req.body;
 
@@ -32,7 +32,7 @@ router.post("/post",(req,res,next)=>{
 //post method end......................................
 
 
-router.get("/get/:id",async(req,res)=>{
+router.get("/get/:id",checkauth,async(req,res)=>{
 
     try{
      
@@ -50,7 +50,7 @@ router.get("/get/:id",async(req,res)=>{
 
 
 //get method start......................................
-router.get("/get",async(req,res)=>{
+router.get("/get",checkauth,async(req,res)=>{
 
     try{
 
@@ -67,7 +67,7 @@ router.get("/get",async(req,res)=>{
 
 
 //put method start......................................
-router.put("/update/:id",async(req,res)=>{
+router.put("/update/:id",checkauth,async(req,res)=>{
 
     try{
      
