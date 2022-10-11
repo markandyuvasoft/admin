@@ -6,9 +6,9 @@ var Schema= mongoose.Schema
 const employSchema=new mongoose.Schema({
 
       
-    _id:{
-        type:Number,
-    },
+    // _id:{
+    //     type:Number,
+    // },
 
     name:{
         type:String,

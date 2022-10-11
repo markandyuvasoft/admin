@@ -18,9 +18,9 @@ router.post("/post",checkauth,async(req,res,next)=>{
 
         const user = new Employ(req.body)
 
-        const get=  Employ.find()           // number id ke ley
+        // const get=  Employ.find()           // number id ke ley
         
-        user._id = (await get).length+1,    // number id ke ley
+        // user._id = (await get).length+1,    // number id ke ley
       
         user.save().then(()=>{
     
