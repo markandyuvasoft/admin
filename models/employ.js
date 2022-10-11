@@ -5,11 +5,6 @@ var Schema= mongoose.Schema
 
 const employSchema=new mongoose.Schema({
 
-      
-    // _id:{
-    //     type:Number,
-    // },
-
     name:{
         type:String,
     
@@ -23,7 +18,10 @@ const employSchema=new mongoose.Schema({
     salary:{
         type:Number,
         },
-})
+
+},{versionKey: false})
+
+employSchema.set('timestamps',true)
 
 const Employ=mongoose.model('employ',employSchema)
 
