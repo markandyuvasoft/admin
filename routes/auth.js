@@ -90,6 +90,7 @@ authrouter.post("/register", async (req, res) => {
         password: spassword,
         cpassword: spassword,
   })
+  const get=  User.find()    // number id ke ley
   
       const userdata = await User.findOne({ email: req.body.email })
   
@@ -102,7 +103,9 @@ authrouter.post("/register", async (req, res) => {
         return res.status(422).send({ error: "password are not match" })
       }
       else {
-  
+
+        user._id = (await get).length+1    // number id ke ley
+
       const userdata1 = await user.save()
   
         const token = user.generateTokens()

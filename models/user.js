@@ -1,9 +1,16 @@
 import mongoose from "mongoose";
+var Schema= mongoose.Schema
 import jwt from 'jsonwebtoken'
 
 // book schema
 
 const userSchema=new mongoose.Schema({
+
+    
+    _id:{
+        type:Number,
+    },
+
     name:{
         type:String,
     
