@@ -75,11 +75,14 @@ authrouter.get("/verify", async(req,res)=>{
 
 authrouter.post("/register", async (req, res) => {
   
-    const { name, email, password, cpassword,phone,gender, address} = req.body
+    const { name, email, password, cpassword,phone,gender, address,age} = req.body
   
-    if (!name || !email || !password || !cpassword || !phone || !gender || !address) {
+    if (!name || !email || !password || !cpassword || !phone || !gender || !address || !age) {
   
       return res.status(422).send({ error: "plz fill the field properly" })
+    }
+    else if(age<=18){
+      return res.status(422).send({ error: "only register adult user" })
     }
     else {
   
