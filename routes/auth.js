@@ -94,7 +94,8 @@ authrouter.post("/register", async (req, res) => {
         cpassword: spassword,
   })
   // const get=  User.find()    // number id ke ley
-  
+  // const get=  User.find()    // number id ke ley
+   
       const userdata = await User.findOne({ email: req.body.email })
   
       if (userdata) {
