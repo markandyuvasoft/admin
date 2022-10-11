@@ -7,7 +7,7 @@ import User from "../models/user.js"
 const router=express.Router()
 
 //post method start......................................
-router.post("/post",checkauth,(req,res,next)=>{
+router.post("/post",checkauth,async(req,res,next)=>{
 
     const { name, age, city,salary } = req.body;
 
@@ -17,6 +17,10 @@ router.post("/post",checkauth,(req,res,next)=>{
     } else{
 
         const user = new Employ(req.body)
+
+        const get=  Employ.find()           // number id ke ley
+        
+        user._id = (await get).length+1,    // number id ke ley
       
         user.save().then(()=>{
     

@@ -1,9 +1,15 @@
 import mongoose from "mongoose";
-
+var Schema= mongoose.Schema
 
 // book schema
 
 const employSchema=new mongoose.Schema({
+
+      
+    _id:{
+        type:Number,
+    },
+
     name:{
         type:String,
     
