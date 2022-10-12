@@ -36,6 +36,7 @@ const userSchema=new mongoose.Schema({
         type:String
     },
     age:Number,
+    
     token:{
         type:String,
         default:''
