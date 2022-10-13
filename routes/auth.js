@@ -7,9 +7,10 @@ import checkauth from "../middleware/auth.js";
 import adminauth from "../middleware/admin.js";
 import nodemailer from 'nodemailer'
 import moment from 'moment'
+import dotenv from 'dotenv'
 
+dotenv.config()
 const authrouter=express.Router()
-
 
 //BCRYPT PASSWORD USE THIS METHOD START
 const secure = async (password) => {
@@ -33,8 +34,8 @@ const sentverifymail = async(name,email,user_id)=>{
             port: 465,                     // true for 465, false for other ports
             host: "smtp.gmail.com",
             auth: {
-                user: 'amandighe0@gmail.com',
-                pass: 'ryedthquvuawjzxh'
+                user: process.env.userid,
+                pass: process.env.userpass
             },
             secure: true,
         });
