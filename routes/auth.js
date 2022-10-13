@@ -34,14 +34,14 @@ const sentverifymail = async(name,email,user_id)=>{
             port: 465,                     // true for 465, false for other ports
             host: "smtp.gmail.com",
             auth: {
-                user: 'amandighe0@gmail.com',
-                pass: process.env.userpass
+                user: process.env.USER_id,
+                pass: process.env.USER_PASS,
             },
             secure: true,
         });
         const mailoptions={
 
-            from: 'amandighe0@gmail.com',
+            from: process.env.USER_id,
             to:email,
             subject:'for email varifiaction',
             html: '<p> hii '+name+', please click to verify <a href="  https://adminaman.herokuapp.com/verify?id='+user_id+'">verify</a>your mail</p>'
