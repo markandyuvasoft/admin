@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken'
 import checkauth from "../middleware/auth.js";
 import adminauth from "../middleware/admin.js";
 import nodemailer from 'nodemailer'
+import moment from 'moment'
 
 const authrouter=express.Router()
 
@@ -148,7 +149,11 @@ authrouter.post("/login",async(req,res,next)=>{
     }
     const token= user.generateTokens()
 
-    res.status(201).send(`TOKEN=${token} USERID =${user._id}`)
+    const m = moment();
+    moment().format('LLL')
+
+    res.status(201).send(`TOKEN=${token} USERID =${user._id} 
+    Date= ${m}`)
 }
 }
   })

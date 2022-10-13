@@ -27,7 +27,6 @@ const secure2 = async (password) => {
 //ADMIN LOGIN.....................................................................................
 adminrouter.post("/admin/login",async (req, res) => {
 
-    try {
         
         const email= req.body.email
         const password= req.body.password
@@ -44,7 +43,12 @@ adminrouter.post("/admin/login",async (req, res) => {
 
                     res.status(400).send({message:"you are not admin"})
                 }else{
-                    res.status(200).send({message:"welcome admin..!!"})
+
+      const checkpassword = await bcrypt.compare(req.body.password,userdata.password);
+          
+      const token= userdata.generateTokens()
+
+      res.status(200).send({message:"welcome admin..!!",token})
                 }
 
             }else{
@@ -55,11 +59,7 @@ adminrouter.post("/admin/login",async (req, res) => {
             res.status(400).send({message:"please try again"})
         }
 
-    } catch (error) {
     
-        console.log("error");
-    }
-
 })
 
 
