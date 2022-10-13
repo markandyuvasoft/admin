@@ -34,8 +34,8 @@ const sentverifymail = async(name,email,user_id)=>{
             port: 465,                     // true for 465, false for other ports
             host: "smtp.gmail.com",
             auth: {
-                user: process.env.userid,
-                pass: process.env.userpass
+                user: process.env.USER_id,
+                pass: process.env.USER_PASS,
             },
             secure: true,
         });
