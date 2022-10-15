@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import Jwt from 'jsonwebtoken'
 
 
 // const checkauth=(req,res,next)=>{
@@ -12,7 +12,7 @@ import jwt from 'jsonwebtoken'
 
 //     try{
 
-//         const decodeToken = jwt.verify(token,'privatekey')
+//         const decodeToken = Jwt.verify(token,'privatekey')
 
 //         req.user = decodeToken
 
@@ -31,7 +31,7 @@ const checkauth=(req,res,next)=>{
     try{
 const token= req.headers.authorization.split(" ")[1]
 //  console.log(token)
-const verify = Jwt.verify(token,'i am markand')
+const verify = Jwt.verify(token,'privatekey')
 
 
 next()
