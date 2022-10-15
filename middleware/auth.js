@@ -31,7 +31,8 @@ const checkauth=(req,res,next)=>{
     try{
 const token= req.headers.authorization.split(" ")[1]
 //  console.log(token)
-const verify = Jwt.verify(token,'privatekey')
+const verify = Jwt.verify(token,'privatekey')  
+// ggg6h5hu5h5uhj    
 
 
 next()
