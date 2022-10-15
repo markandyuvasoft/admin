@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 var Schema= mongoose.Schema
 
 // book schema
-//Check a branch pull request
 
 const employSchema=new mongoose.Schema({
 

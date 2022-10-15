@@ -24,7 +24,7 @@ import Jwt from 'jsonwebtoken'
 //     }
 
 // }
-
+//dfgdgfdgfgfg
 
 const checkauth=(req,res,next)=>{
     
