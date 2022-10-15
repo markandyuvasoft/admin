@@ -149,10 +149,6 @@ authrouter.post("/login",async(req,res,next)=>{
         return res.status(404).send('invalid email or password') 
     }
     const token= user.generateTokens()
-
-    //  const m =moment().format('MMMM Do YYYY, h:mm:ss ')
-   	
-
     res.status(200).send(token)
 }
 }
