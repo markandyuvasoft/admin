@@ -46,7 +46,7 @@ const userSchema=new mongoose.Schema({
         type:Number,
         default:0,
     }
-})
+},{versionKey: false})    
 
 userSchema.methods.generateTokens = function (){
 

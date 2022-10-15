@@ -6,9 +6,11 @@ import jwt from 'jsonwebtoken'
 import checkauth from "../middleware/auth.js";
 import adminauth from "../middleware/admin.js";
 import nodemailer from 'nodemailer'
+import moment from 'moment'
+import dotenv from 'dotenv'
 
+dotenv.config()
 const authrouter=express.Router()
-
 
 //BCRYPT PASSWORD USE THIS METHOD START
 const secure = async (password) => {
@@ -32,8 +34,8 @@ const sentverifymail = async(name,email,user_id)=>{
             port: 465,                     // true for 465, false for other ports
             host: "smtp.gmail.com",
             auth: {
-                user: 'amandighe0@gmail.com',
-                pass: 'ryedthquvuawjzxh'
+                user: process.env.USER_id,
+                pass: process.env.USER_PASS,
             },
             secure: true,
         });
@@ -93,8 +95,7 @@ authrouter.post("/register", async (req, res) => {
         password: spassword,
         cpassword: spassword,
   })
-  // const get=  User.find()    // number id ke ley
-  
+   
       const userdata = await User.findOne({ email: req.body.email })
   
       if (userdata) {
@@ -149,7 +150,10 @@ authrouter.post("/login",async(req,res,next)=>{
     }
     const token= user.generateTokens()
 
-    res.status(201).send(`TOKEN=${token} USERID =${user._id}`)
+    //  const m =moment().format('MMMM Do YYYY, h:mm:ss ')
+   	
+
+    res.status(200).send(token)
 }
 }
   })

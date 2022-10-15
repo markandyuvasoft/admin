@@ -5,6 +5,7 @@ import cors from "cors";
 import router from "./routes/employ.js"
 import userrouter from "./routes/user.js"
 import authrouter from "./routes/auth.js"
+import adminrouter from "./routes/admin.js"
 
 dotenv.config()
 const app=express();
@@ -20,7 +21,7 @@ app.use(cors())
 app.use("/",router)
 app.use("/",userrouter)
 app.use("/",authrouter)
-
+app.use("/",adminrouter)
 
 
 const PORT=process.env.PORT||3000
