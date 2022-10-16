@@ -7,7 +7,7 @@ import User from "../models/user.js"
 const router=express.Router()
 
 //post method start......................................
-router.post("/post",async(req,res,next)=>{
+router.post("/post",checkauth,async(req,res,next)=>{
 
     const { name, age, city,salary } = req.body;
 

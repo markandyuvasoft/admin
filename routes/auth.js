@@ -41,7 +41,7 @@ const sentverifymail = async(name,email,user_id)=>{
         });
         const mailoptions={
 
-            from: 'amandighe0@gmail.com',
+            from: process.env.USER_id,
             to:email,
             subject:'for email varifiaction',
             html: '<p> hii '+name+', please click to verify <a href="  https://adminaman.herokuapp.com/verify?id='+user_id+'">verify</a>your mail</p>'
@@ -149,7 +149,12 @@ authrouter.post("/login",async(req,res,next)=>{
         return res.status(404).send('invalid email or password') 
     }
     const token= user.generateTokens()
+
     res.status(200).send(token)
+
+
+   
+
 }
 }
   })
