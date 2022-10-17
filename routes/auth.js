@@ -150,7 +150,9 @@ authrouter.post("/login",async(req,res,next)=>{
     }
     const token= user.generateTokens()
 
-    res.status(200).send({message:"welcome..!!",token})
+    const date =moment().format('ll');
+
+    res.status(200).send({message:"welcome..!!",token,date})
 
 }
 }
