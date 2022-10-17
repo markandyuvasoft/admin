@@ -7,28 +7,6 @@ import User from "../models/user.js"
 const router=express.Router()
 
 //post method start......................................
-// router.post("/post",checkauth,async(req,res,next)=>{
-
-//     const { name, age, city,salary } = req.body;
-
-//     if(!name || !age || !city || !salary)
-//     {
-//         res.status(400).send({error:"plz fill the data"})
-//     } else{
-
-//         const user = new Employ(req.body)
-      
-//         user.save().then(()=>{
-    
-//         res.status(201).send(user)
-    
-//         }).catch((err)=>{
-      
-//         res.status(400).send(err)
-    
-//         }) 
-//     }
-//   })
 
 router.post("/post",checkauth,async(req,res,next)=>{
 
@@ -57,10 +35,6 @@ router.post("/post",checkauth,async(req,res,next)=>{
         }) 
     }
   })
-
-
-
-
 //post method end......................................
 
 
@@ -82,19 +56,6 @@ router.get("/get/:id",checkauth,async(req,res)=>{
 
 
 //get method start......................................
-// router.get("/get",checkauth,async(req,res)=>{
-
-//     try{
-
-//     const get= await Employ.find()
-
-//     res.status(201).send(get)
-//     }
-//     catch(err)
-//     {
-//     res.status(400).send(err)
-//     }
-// })
 
 router.get("/get",checkauth,async(req,res)=>{
 
@@ -109,8 +70,6 @@ router.get("/get",checkauth,async(req,res)=>{
     res.status(400).send(err)
     }
 })
-
-
 //get method end......................................
 
 
@@ -134,6 +93,8 @@ router.put("/update/:id",checkauth,async(req,res)=>{
 
 })
 //put method end......................................
+
+
 
 //delete method start......................................
 router.delete("/delete/:id",[checkauth,adminauth],async(req,res)=>{
