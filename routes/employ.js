@@ -72,6 +72,23 @@ router.get("/get",checkauth,async(req,res)=>{
 })
 //get method end......................................
 
+//ALL USER DATA SHOW START.............................
+router.get("/all",[checkauth,adminauth],async(req,res)=>{
+
+    try{
+
+    const get= await Employ.find()
+
+    res.status(201).send(get)
+    }
+    catch(err)
+    {
+    res.status(400).send(err)
+    }
+})
+//ALL USER DATA SHOW END.............................
+
+
 
 //put method start......................................
 router.put("/update/:id",checkauth,async(req,res)=>{
