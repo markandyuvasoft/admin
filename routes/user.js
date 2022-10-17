@@ -30,10 +30,8 @@ const sendset1 = async (name, email, token) => {
       port: 465,                     // true for 465, false for other ports
       host: "smtp.gmail.com",
       auth: {
-        //   user: 'amandighe0@gmail.com',
         user: process.env.USER_id,
         pass: process.env.USER_PASS,
-        // pass: 'ryedthquvuawjzxh'
       },
       secure: true,
   });

@@ -6,6 +6,7 @@ import checkauth from "../middleware/auth.js";
 import adminauth from "../middleware/admin.js";
 import randomstring from 'randomstring'
 import nodemailer from 'nodemailer'
+import moment from 'moment'
 
 
 const adminrouter = express.Router()
@@ -48,7 +49,9 @@ adminrouter.post("/admin/login",async (req, res) => {
           
       const token= userdata.generateTokens()
 
-      res.status(200).send({message:"welcome admin..!!",token})
+      const date =moment().format('llll');
+
+      res.status(200).send({message:"welcome admin..!!",token,date}) 
                 }
 
             }else{
