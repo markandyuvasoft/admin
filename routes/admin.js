@@ -62,7 +62,6 @@ adminrouter.post("/admin/login",async (req, res) => {
 
 
 //SEARCH USER START.................
-
 adminrouter.get("/search",[checkauth,adminauth],async(req,res,next)=>{
 
   try{
@@ -87,7 +86,6 @@ adminrouter.get("/search",[checkauth,adminauth],async(req,res,next)=>{
   }catch (error) {
 
   console.log(error)
-
   }
 })
 
