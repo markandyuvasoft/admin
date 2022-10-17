@@ -150,7 +150,7 @@ authrouter.post("/login",async(req,res,next)=>{
 
     // const m = moment().format("dddd, MMMM Do YYYY, h:mm ")
 
-    const date =moment().startOf('minute').toString()
+    const date =moment().startOf('second').toString()
 
     res.status(200).send({message:"welcome..!!",token,date})
 
