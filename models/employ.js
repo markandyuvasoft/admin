@@ -18,6 +18,10 @@ const employSchema=new mongoose.Schema({
     salary:{
         type:Number,
         },
+    postedby:{
+        type:ObjectId,
+        ref:"user1"
+            },
 
 },{versionKey: false})
 

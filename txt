@@ -48,3 +48,32 @@
 //   })
 //post method user register HIDE PASSWORD and BCRYPT PASSWORD end......................................
 
+
+
+
+
+//JWT TOKEN WITHOUT BEARER WRITE
+
+// const checkauth=(req,res,next)=>{
+
+//     const token = req.header('Authorization')
+
+//     if(!token){
+
+//         return res.status(401).send({error:'only authorised person'})
+//     }
+
+//     try{
+
+//         const decodeToken = Jwt.verify(token,'privatekey')
+
+//         req.user = decodeToken
+
+//         next()
+
+//     }catch(e){
+
+//         return res.status(401).send({error:'wrong token'})
+//     }
+
+// }

@@ -152,9 +152,6 @@ authrouter.post("/login",async(req,res,next)=>{
 
     res.status(200).send(token)
 
-
-   
-
 }
 }
   })
