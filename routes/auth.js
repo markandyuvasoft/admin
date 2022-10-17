@@ -146,9 +146,11 @@ authrouter.post("/login",async(req,res,next)=>{
         
         return res.status(404).send({error:"invalid email or password"}) 
     }
-    const token= user.generateTokens()
+    const token= user.generateTokens() 
 
-    const date =moment().format('ll');
+    // const m = moment().format("dddd, MMMM Do YYYY, h:mm ")
+
+    const date =moment().startOf('minute').toString()
 
     res.status(200).send({message:"welcome..!!",token,date})
 
