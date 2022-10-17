@@ -48,8 +48,8 @@ adminrouter.post("/admin/login",async (req, res) => {
       const checkpassword = await bcrypt.compare(req.body.password,userdata.password);
           
       const token= userdata.generateTokens()
-
-      const date =moment().format('llll')
+        
+      const date =moment().startOf('day').toString()
 
       res.status(200).send({message:"welcome admin..!!",token,date}) 
                 }
