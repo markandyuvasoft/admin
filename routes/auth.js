@@ -100,15 +100,13 @@ authrouter.post("/register", async (req, res) => {
   
       if (userdata) {
   
-        res.status(400).send({ message: "user already exist" })
+        res.status(400).send({ error: "user already exist" })
   
       } else if (password != cpassword) {
   
         return res.status(422).send({ error: "password are not match" })
       }
       else {
-
-        // user._id = (await get).length+1    // number id ke ley
 
       const userdata1 = await user.save()
   
@@ -128,14 +126,14 @@ authrouter.post("/login",async(req,res,next)=>{
     
     if(!email || !password){
     
-        res.status(400).send("please fill the proper field ")
+        res.status(400).send({error:"please fill the proper field "})
     }else{
 
         let user = await User.findOne({email:req.body.email})
         
     if(!user){
             
-    return res.status(404).send('invalid email or password') 
+    return res.status(404).send({error:"invalid email or password"}) 
 
     }else if(user.isVarified === 0){
 
@@ -146,7 +144,7 @@ authrouter.post("/login",async(req,res,next)=>{
 
     if(!checkpassword){
         
-        return res.status(404).send('invalid email or password') 
+        return res.status(404).send({error:"invalid email or password"}) 
     }
     const token= user.generateTokens()
 

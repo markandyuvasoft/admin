@@ -24,24 +24,22 @@ const secure1 = async (password) => {
 }
 //BCRYPT PASSWORD USE THIS METHOD END
 
-
-
-
-
 //email send for reset password
 const sendset1 = async (name, email, token) => {
   const transporter = nodemailer.createTransport({
       port: 465,                     // true for 465, false for other ports
       host: "smtp.gmail.com",
       auth: {
-          user: 'amandighe0@gmail.com',
-          pass: 'ryedthquvuawjzxh'
+        //   user: 'amandighe0@gmail.com',
+        user: process.env.USER_id,
+        pass: process.env.USER_PASS,
+        // pass: 'ryedthquvuawjzxh'
       },
       secure: true,
   });
   const mailoptions = {
 
-      from: 'amandighe0@gmail.com',
+      from: process.env.USER_id,
       to: email,
       subject: 'reset password',
       html: '<p> hii ' + name + ', plz copy the link and <a href=" https://adminaman.herokuapp.com/reset?token=' + token + '"> reset your password</a>'

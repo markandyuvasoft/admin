@@ -14,19 +14,19 @@ router.post("/post",checkauth,async(req,res,next)=>{
 
     if(!name || !age || !city || !salary)
     {
-        res.status(400).send({error:"plz fill the data"})
+        res.status(400).send({error:"please fill the field proper"})
     } else{
 
         req.user.password= undefined          // password ko show nhi krwane ke ley
         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined 
         const user = new Employ({
-                                            //req.user me user login ki details hai
+                                          
             name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
 
         })
         user.save().then(()=>{
     
-        res.status(201).send(user)
+        res.status(200).send(user)
     
         }).catch((err)=>{
       
@@ -46,7 +46,7 @@ router.get("/get/:id",checkauth,async(req,res)=>{
 
      const getid= await Employ.findById(_id)
 
-     res.status(201).send(getid)
+     res.status(200).send(getid)
     }
     catch(err)
     {
@@ -63,7 +63,7 @@ router.get("/get",checkauth,async(req,res)=>{
 
     const get= await  Employ.find({postedby:req.user._id}) .populate("postedby", "_id name")
 
-    res.status(201).send(get)
+    res.status(200).send(get)
     }
     catch(err)
     {
@@ -84,7 +84,7 @@ router.put("/update/:id",checkauth,async(req,res)=>{
         new:true
      })
 
-     res.status(201).send(getid)
+     res.status(200).send(getid)
     }
     catch(err)
     {
@@ -103,8 +103,6 @@ router.delete("/delete/:id",[checkauth,adminauth],async(req,res)=>{
         const _id= req.params.id
 
         const del= await Employ.findByIdAndDelete(_id)
-
-
 
         res.status(200).send({message: "your data is delete"})
     }
