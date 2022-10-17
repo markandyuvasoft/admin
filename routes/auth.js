@@ -150,7 +150,7 @@ authrouter.post("/login",async(req,res,next)=>{
     }
     const token= user.generateTokens()
 
-    res.status(200).send(token)
+    res.status(200).send({message:"welcome..!!",token})
 
 }
 }
