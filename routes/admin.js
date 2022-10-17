@@ -42,7 +42,8 @@ adminrouter.post("/admin/login",async (req, res) => {
                     res.status(400).send({message:"you are not admin"})
                 }else{
       const checkpassword = await bcrypt.compare(req.body.password,userdata.password);
-      const token= userdata.generateTokens()
+     
+      const token= await userdata.generateTokens()
 
       // const m = moment().format("dddd, MMMM Do YYYY, h:mm ")
         

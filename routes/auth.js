@@ -146,7 +146,7 @@ authrouter.post("/login",async(req,res,next)=>{
         
         return res.status(404).send({error:"invalid email or password"}) 
     }
-    const token= user.generateTokens() 
+    const token=  await user.generateTokens()  
 
     // const m = moment().format("dddd, MMMM Do YYYY, h:mm ")
 
@@ -158,6 +158,8 @@ authrouter.post("/login",async(req,res,next)=>{
 }
   })
 //post method user register HIDE PASSWORD and BCRYPT PASSWORD end......................................
+
+
 
 export default authrouter
 

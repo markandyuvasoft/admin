@@ -31,11 +31,17 @@ const userSchema=new mongoose.Schema({
     },
     age:Number,
     
-    token:{
-        type:String,
-        default:''
-    },
+    // token:{
+    //     type:String,
+    //     default:''
+    // },
+    tokens:[{
 
+        token:{
+            type:String,
+            required:true
+        }
+    }],
     isAdmin:
     {
       type:Boolean,
@@ -47,16 +53,13 @@ const userSchema=new mongoose.Schema({
     }
 },{versionKey: false})    
 
-userSchema.methods.generateTokens = function (){
+userSchema.methods.generateTokens = async function (){
 
-    const token= jwt.sign({_id:this._id,isAdmin:this.isAdmin
-    },    
-        'privatekey',
-        {
-            expiresIn:"24h"
-        }
-        ) 
+    const token= jwt.sign({_id:this._id,isAdmin:this.isAdmin},'privatekey')
 
+    this.tokens = this.tokens.concat({ token:token })
+
+    await this.save()
     return token
 }
 
