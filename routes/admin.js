@@ -49,7 +49,7 @@ adminrouter.post("/admin/login",async (req, res) => {
           
       const token= userdata.generateTokens()
         
-      const date =moment().startOf('day').toString()
+      const date =moment().startOf('minute').toString()
 
       res.status(200).send({message:"welcome admin..!!",token,date}) 
                 }
