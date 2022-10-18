@@ -6,7 +6,6 @@ const employSchema=new mongoose.Schema({
 
     name:{
         type:String,
-    
         },
     age:{
         type:Number
@@ -17,13 +16,13 @@ const employSchema=new mongoose.Schema({
     salary:{
         type:Number,
         },
-        image:{
-            type: String,
+    image:{
+        type: String,
         },
     postedby:{
         type:ObjectId,
         ref:"user1"
-            },
+        },
 
 },{versionKey: false})
 

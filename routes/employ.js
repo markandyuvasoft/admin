@@ -9,53 +9,23 @@ const router=express.Router()
 
 //IMAGE DISK STORAGE
 const storage = multer.diskStorage({
-    destination: './upload/images',  
-    imagename: (req, image, cb) => {
-        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + image.originalname);
-      }
+    destination: './upload/images',
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
+    }
   });
 //IMAGE FILE FILTERS..
-const imagefilter = (req, image, cb) => {
-    if (image.mimetype === 'image/png' || image.mimetype === 'image/jpg' 
-        || image.mimetype === 'image/jpeg' || image.mimetype === 'application/pdf'){
+const filefilter = (req, file, cb) => {
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
+        || file.mimetype === 'image/jpeg' || file.mimetype === 'application/pdf'){
             cb(null, true);
         }else {
             cb(null, false);
         }
   }
-  const upload= multer({storage:storage, imageFilter:imagefilter})
-
-
+const upload= multer({storage:storage, fileFilter:filefilter})
 
 //post method start......................................
-// router.post("/post",checkauth,async(req,res,next)=>{
-
-//     const {  name, age ,city, salary } = req.body;
-
-//     if(!name || !age || !city || !salary)
-//     {
-//         res.status(400).send({error:"please fill the field proper"})
-//     } else{
-
-//         req.user.password= undefined          // password ko show nhi krwane ke ley
-//         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined , req.user.token= undefined ,   req.user.tokens= undefined
-//         const user = new Employ({
-                                          
-//             name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
-
-//         })
-//         user.save().then(()=>{
-    
-//         res.status(200).send(user)
-    
-//         }).catch((err)=>{
-      
-//         res.status(400).send(err)
-    
-//         }) 
-//     }
-//   })
-
 router.post("/post",upload.single('image'),checkauth,async(req,res,next)=>{
 
     const {  name, age ,city, salary } = req.body;
@@ -67,26 +37,19 @@ router.post("/post",upload.single('image'),checkauth,async(req,res,next)=>{
 
         req.user.password= undefined,          // password ko show nhi krwane ke ley
         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
+      
         const user = new Employ({
-                                            //req.user me user login ki details hai
-      image: req.file.mimetype,  name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
-
+      
+            image: req.file.mimetype, name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
         })
         user.save().then(()=>{
-    
         res.status(201).send(user)
     
         }).catch((err)=>{
-      
         res.status(400).send(err)
-
         }) 
     }
   })
-
-
-
-
 //post method end......................................
 
 
@@ -94,11 +57,11 @@ router.get("/get/:id",checkauth,async(req,res)=>{
 
     try{
      
-        const _id= req.params.id
+    const _id= req.params.id
 
-     const getid= await Employ.findById(_id)
+    const getid= await Employ.findById(_id)
 
-     res.status(200).send(getid)
+    res.status(200).send(getid)
     }
     catch(err)
     {
@@ -106,9 +69,7 @@ router.get("/get/:id",checkauth,async(req,res)=>{
     }
 })
 
-
 //get method start......................................
-
 router.get("/get",checkauth,async(req,res)=>{
 
     try{
@@ -123,6 +84,7 @@ router.get("/get",checkauth,async(req,res)=>{
     }
 })
 //get method end......................................
+
 
 //ALL USER DATA SHOW START.............................
 router.get("/all",[checkauth,adminauth],async(req,res)=>{
@@ -140,30 +102,25 @@ router.get("/all",[checkauth,adminauth],async(req,res)=>{
 })
 //ALL USER DATA SHOW END.............................
 
-
-
 //put method start......................................
 router.put("/update/:id",checkauth,async(req,res)=>{
 
     try{
      
-        const _id= req.params.id
+    const _id= req.params.id
 
-     const getid= await Employ.findByIdAndUpdate(_id,req.body,{
-        new:true
+    const getid= await Employ.findByIdAndUpdate(_id,req.body,{
+    new:true
      })
 
-     res.status(200).send(getid)
+    res.status(200).send(getid)
     }
     catch(err)
     {
         res.status(500).send(err)
     }
-
 })
 //put method end......................................
-
-
 
 //delete method start......................................
 router.delete("/delete/:id",[checkauth,adminauth],async(req,res)=>{
@@ -173,7 +130,7 @@ router.delete("/delete/:id",[checkauth,adminauth],async(req,res)=>{
 
         const del= await Employ.findByIdAndDelete(_id)
 
-        res.status(200).send({message: "your data is delete"})
+        res.status(200).send({message: "deleted user data"})
     }
     catch(err)
     {
@@ -182,4 +139,3 @@ router.delete("/delete/:id",[checkauth,adminauth],async(req,res)=>{
 })
 //delete method end......................................
 export default router
-
