@@ -10,9 +10,14 @@ const router=express.Router()
 //IMAGE DISK STORAGE
 const storage = multer.diskStorage({
     destination: './upload/images',
-    filename: (req, file, cb) => {
-        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
-    }
+    // filename: (req, file, cb) => {
+    //     cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
+    // }
+    filename: (req, file, callback) => {
+        let imagePath = Date.now() + '-' +  (file.originalname);
+        callback(null, imagePath);
+    
+      },
   });
 //IMAGE FILE FILTERS..
 const filefilter = (req, file, cb) => {
@@ -43,8 +48,10 @@ router.post("/post",upload.single('image'),checkauth,async(req,res,next)=>{
         const user = new Employ({
       
             image: req.file.mimetype, name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
+          
         })
         user.save().then(()=>{
+            // file_url: `http://localhost:3000/profile/${req.file.filename}`,
         res.status(200).send(user)
     
         }).catch((err)=>{
