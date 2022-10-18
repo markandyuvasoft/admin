@@ -81,7 +81,8 @@ router.post("/post",checkauth,async(req,res,err)=>{
                     
                     name,age,city,salary,postedby:req.user,
                     image: req.file.mimetype,
-                    
+                    // name,age,city,salary,postedby:req.user,
+                    // image: req.file.mimetype,
                 })
                 
                 user.save()
