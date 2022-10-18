@@ -60,10 +60,10 @@ const sentverifymail = async(name,email,user_id)=>{
 
 
 
-authrouter.get("/profile", checkauth, async (req, res) => {  
-    const profile = await User.findById(req.user._id).select('-password')// chye to employ wali details find krwao
-    res.status(200).send(profile)
-})
+// authrouter.get("/profile", checkauth, async (req, res) => {  
+//     const profile = await User.findById(req.user._id).select('-password')// chye to employ wali details find krwao
+//     res.status(200).send(profile)
+// })
   
 authrouter.get("/verify", async(req,res)=>{
     try {
