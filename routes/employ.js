@@ -61,34 +61,42 @@ const upload= multer({storage:storage, fileFilter:filefilter}).single('image')
 //post method end......................................
 
 router.use('/profile', express.static('upload/images'));
-router.post("/upload",checkauth,async(req,res,err)=>{
- 
+router.post("/post",checkauth,async(req,res,err)=>{
+    const {  name, age ,city, salary } = req.body;
+    
+    // if(!name || !age || !city || !salary ){
+
+        // res.status(400).send({error:"plz fill the data"})
+    // }else{
+        req.user.password= undefined,  
+        req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
         upload(req,res,(err)=>{
-
-        if(err)
-        {
-            console.log(err);
-        }
-else{
-    const data= new Employ({
-
-        name:req.body.name,
-        phone:req.body.phone,
-
-    })
-
-  data.save()
-  .then(()=>res.json({
-    success: 1,
-         file_url: `https://adminaman.herokuapp.com/profile/${req.file.filename}`,
-        data
-
-        }))
-
-    }   
-      })
-
-
+            
+            if(err)
+            {
+                console.log(err);
+            }
+            else{
+                const user= new Employ({
+                    
+                    name,age,city,salary,postedby:req.user,
+                    image: req.file.mimetype,
+                    
+                })
+                
+                user.save()
+                .then(()=>res.status(200).send({
+                    
+                    image_url: `https://adminaman.herokuapp.com/profile/${req.file.filename}`,
+                    user
+                    
+                }))
+                
+            }   
+        })
+        
+    // }
+        
     })
 
 
