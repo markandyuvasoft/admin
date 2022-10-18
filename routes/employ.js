@@ -3,38 +3,90 @@ import Employ from "../models/employ.js"
 import checkauth from "../middleware/auth.js";
 import adminauth from "../middleware/admin.js";
 import User from "../models/user.js"
+import multer from 'multer'
 
 const router=express.Router()
 
-//post method start......................................
+//IMAGE DISK STORAGE
+const storage = multer.diskStorage({
+    destination: './upload/images',  
+    imagename: (req, image, cb) => {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + image.originalname);
+      }
+  });
+//IMAGE FILE FILTERS..
+const imagefilter = (req, image, cb) => {
+    if (image.mimetype === 'image/png' || image.mimetype === 'image/jpg' 
+        || image.mimetype === 'image/jpeg' || image.mimetype === 'application/pdf'){
+            cb(null, true);
+        }else {
+            cb(null, false);
+        }
+  }
+  const upload= multer({storage:storage, imageFilter:imagefilter})
 
-router.post("/post",checkauth,async(req,res,next)=>{
+
+
+//post method start......................................
+// router.post("/post",checkauth,async(req,res,next)=>{
+
+//     const {  name, age ,city, salary } = req.body;
+
+//     if(!name || !age || !city || !salary)
+//     {
+//         res.status(400).send({error:"please fill the field proper"})
+//     } else{
+
+//         req.user.password= undefined          // password ko show nhi krwane ke ley
+//         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined , req.user.token= undefined ,   req.user.tokens= undefined
+//         const user = new Employ({
+                                          
+//             name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
+
+//         })
+//         user.save().then(()=>{
+    
+//         res.status(200).send(user)
+    
+//         }).catch((err)=>{
+      
+//         res.status(400).send(err)
+    
+//         }) 
+//     }
+//   })
+
+router.post("/post",upload.single('image'),checkauth,async(req,res,next)=>{
 
     const {  name, age ,city, salary } = req.body;
 
-    if(!name || !age || !city || !salary)
+    if(!name || !age || !city || !salary )
     {
-        res.status(400).send({error:"please fill the field proper"})
+        res.status(400).send({error:"plz fill the data"})
     } else{
 
-        req.user.password= undefined          // password ko show nhi krwane ke ley
-        req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined , req.user.token= undefined ,   req.user.tokens= undefined
+        req.user.password= undefined,          // password ko show nhi krwane ke ley
+        req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
         const user = new Employ({
-                                          
-            name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
+                                            //req.user me user login ki details hai
+      image: req.file.mimetype,  name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
 
         })
         user.save().then(()=>{
     
-        res.status(200).send(user)
+        res.status(201).send(user)
     
         }).catch((err)=>{
       
         res.status(400).send(err)
-    
+
         }) 
     }
   })
+
+
+
+
 //post method end......................................
 
 

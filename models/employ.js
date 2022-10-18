@@ -17,6 +17,9 @@ const employSchema=new mongoose.Schema({
     salary:{
         type:Number,
         },
+        image:{
+            type: String,
+        },
     postedby:{
         type:ObjectId,
         ref:"user1"
