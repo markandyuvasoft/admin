@@ -2,7 +2,7 @@
 
 const adminauth=(req,res,next)=>{
 
-    console.log(req.user.isAdmin);
+    // console.log(req.user.isAdmin);
     if(!req.user.isAdmin){
 
         return res.status(403).send({error:'you are not admin user'})
