@@ -55,7 +55,10 @@ const userSchema=new mongoose.Schema({
 
 userSchema.methods.generateTokens = async function (){
 
-    const token= jwt.sign({_id:this._id,isAdmin:this.isAdmin},'privatekey')
+    const token= jwt.sign({_id:this._id,isAdmin:this.isAdmin},'privatekey',{
+
+        expiresIn:"1m"
+    })
 
     this.tokens = this.tokens.concat({ token:token })  //database me token ko add krwane ke ley
 
