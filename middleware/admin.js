@@ -3,7 +3,9 @@ import User from '../models/user.js'
 
 const adminauth=(req,res,next)=>{
 
-    const isAdmin = req.user.data;
+    //const isAdmin = req.user.data;
+    
+     const isAdmin = req.user.isAdmin;
     console.log(isAdmin);
     if(!req.user.isAdmin){
 
@@ -13,6 +15,4 @@ const adminauth=(req,res,next)=>{
         next()
     }
 }
-
-
 export default adminauth;
