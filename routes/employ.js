@@ -28,38 +28,75 @@ const filefilter = (req, file, cb) => {
             cb(null, false);
         }
   }
-const upload= multer({storage:storage, fileFilter:filefilter})
+const upload= multer({storage:storage, fileFilter:filefilter}).single('image')
 
 
 
 //post method start......................................
-router.post("/post",upload.single('image'),checkauth,async(req,res,next)=>{
+// router.post("/post",upload.single('image'),checkauth,async(req,res,next)=>{
 
-    const {  name, age ,city, salary } = req.body;
+//     const {  name, age ,city, salary } = req.body;
 
-    if(!name || !age || !city || !salary )
-    {
-        res.status(400).send({error:"plz fill the data"})
-    } else{
+//     if(!name || !age || !city || !salary )
+//     {
+//         res.status(400).send({error:"plz fill the data"})
+//     } else{
 
-        req.user.password= undefined,          // password ko show nhi krwane ke ley
-        req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
+//         req.user.password= undefined,          // password ko show nhi krwane ke ley
+//         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
       
-        const user = new Employ({
+//         const user = new Employ({
       
-            image: req.file.mimetype, name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
-          
-        })
-        user.save().then(()=>{
-            // file_url: `http://localhost:3000/profile/${req.file.filename}`,
-        res.status(200).send(user)
+//             name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
+//             // image: req.file.mimetype,
+//         })
+//         user.save().then(()=>{
+//         res.status(200).send(user)
     
-        }).catch((err)=>{
-        res.status(400).send(err)
-        }) 
-    }
-  })
+//         }).catch((err)=>{
+//         res.status(400).send(err)
+//         }) 
+//     }
+//   })
 //post method end......................................
+
+router.use('/profile', express.static('upload/images'));
+router.post("/upload",checkauth,async(req,res,err)=>{
+ 
+        upload(req,res,(err)=>{
+
+        if(err)
+        {
+            console.log(err);
+        }
+else{
+    const data= new Employ({
+
+        name:req.body.name,
+        phone:req.body.phone,
+
+    })
+
+  data.save()
+  .then(()=>res.json({
+    success: 1,
+         file_url: `https://adminaman.herokuapp.com/profile/${req.file.filename}`,
+        data
+
+        }))
+
+    }   
+      })
+
+
+    })
+
+
+
+
+
+
+
 
 
 router.get("/get/:id",checkauth,async(req,res)=>{
