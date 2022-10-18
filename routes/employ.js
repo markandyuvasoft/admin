@@ -79,7 +79,7 @@ router.get("/all",[checkauth,adminauth],async(req,res)=>{
 
     const get= await Employ.find()
 
-    res.status(201).send(get)
+    res.status(200).send(get)
     }
     catch(err)
     {
