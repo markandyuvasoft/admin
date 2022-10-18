@@ -25,6 +25,8 @@ const filefilter = (req, file, cb) => {
   }
 const upload= multer({storage:storage, fileFilter:filefilter})
 
+
+
 //post method start......................................
 router.post("/post",upload.single('image'),checkauth,async(req,res,next)=>{
 
@@ -43,7 +45,7 @@ router.post("/post",upload.single('image'),checkauth,async(req,res,next)=>{
             image: req.file.mimetype, name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
         })
         user.save().then(()=>{
-        res.status(201).send(user)
+        res.status(200).send(user)
     
         }).catch((err)=>{
         res.status(400).send(err)
