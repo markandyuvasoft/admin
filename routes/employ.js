@@ -35,30 +35,41 @@ const router=express.Router()
 //post method start......................................
 router.post("/post",checkauth,async(req,res,next)=>{
 
-    const {  name, age ,city, salary } = req.body;
+    const {  name, age ,city, salary ,date} = req.body;
 
-    if(!name || !age || !city || !salary )
+    if(!name || !age || !city || !salary)
     {
         res.status(400).send({error:"plz fill the data"})
+    }else if(age<=18){
+
+        res.status(400).send({error:"only adult user"})
     } else{
 
         req.user.password= undefined,          // password ko show nhi krwane ke ley
         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
         const user = new Employ({
-                                            //req.user me user login ki details hai
-  name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
 
+  name,age,city,salary,date,postedby:req.user         //req.user me user login ki details hai
         })
-        user.save().then(()=>{
-    
-        res.status(201).send(user)
-    
-         })
-         .catch((err)=>{
-      
-        res.status(400).send(err)
+        const userdata = await Employ.findOne({ name:req.body.name}) 
 
-        }) 
+      if (userdata) {
+  
+        res.status(400).send({ error: "user already exist" })
+  
+      }else{
+
+          user.save().then(()=>{
+              
+              res.status(201).send(user)
+              
+            })
+            .catch((err)=>{
+                
+                res.status(400).send(err)
+                
+            }) 
+        }
     }
   })
 //post method end......................................
