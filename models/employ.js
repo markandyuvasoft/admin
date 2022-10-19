@@ -1,32 +1,29 @@
 import mongoose from "mongoose";
-const {ObjectId}= mongoose.Schema.Types
 var Schema= mongoose.Schema
+const {ObjectId}= mongoose.Schema.Types
+// book schema
 
 const employSchema=new mongoose.Schema({
-
     name:{
         type:String,
-       
+        unique:true,
         },
     age:{
-        type:Number,
-       
+        type:Number
     },
     city:{
-        type:String,
-       
-    },  
+        type:String
+    },
+    // file: 
+    //     [Object],
+    
     salary:{
         type:Number,
-       
         },
-  
-    // image:[Object],
- 
-    postedby:{
-        type:ObjectId,
-        ref:"user1"
-        },
+        postedby:{
+            type:ObjectId,
+            ref:"user1"
+            },
 
 },{versionKey: false})
 
