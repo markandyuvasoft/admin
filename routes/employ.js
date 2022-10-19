@@ -49,7 +49,7 @@ router.post("/post",checkauth,async(req,res,next)=>{
         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
       
         const user = new Employ({
-            date :moment().format('MMMM Do YYYY'),name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
+            date :moment().format('L'),name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
         })
         
         const userdata = await Employ.findOne({ name:req.body.name}) 
