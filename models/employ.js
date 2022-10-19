@@ -6,18 +6,23 @@ const employSchema=new mongoose.Schema({
 
     name:{
         type:String,
+       
         },
     age:{
-        type:Number
+        type:Number,
+       
     },
     city:{
-        type:String
+        type:String,
+       
     },  
     salary:{
         type:Number,
+       
         },
   
     // image:[Object],
+ 
     postedby:{
         type:ObjectId,
         ref:"user1"

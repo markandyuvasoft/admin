@@ -7,7 +7,7 @@ import multer from 'multer'
 
 const router=express.Router()
 
-// //IMAGE DISK STORAGE
+// // //IMAGE DISK STORAGE
 // const storage = multer.diskStorage({
 //     destination: './upload/images',
 //     // filename: (req, file, cb) => {
@@ -65,7 +65,7 @@ router.post("/post",checkauth,async(req,res,next)=>{
 
 //     const {  name, age ,city, salary } = req.body;
     
-//     // const image=req.body.file
+//  const image=req.body.file
 
 //     // if(!name || !age || !city || !salary || !image ){
 
@@ -82,8 +82,8 @@ router.post("/post",checkauth,async(req,res,next)=>{
 //             else{
 //                 const user= new Employ({
                     
-//                     name,age,city,salary,postedby:req.user,
-//                     image: req.file.mimetype,
+//                     name,age,city,salary,postedby:req.user
+//                     ,image: req.file.mimetype,
 //                 })
                 
 //                 user.save()
