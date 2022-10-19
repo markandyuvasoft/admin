@@ -7,105 +7,99 @@ import multer from 'multer'
 
 const router=express.Router()
 
-//IMAGE DISK STORAGE
-const storage = multer.diskStorage({
-    destination: './upload/images',
-    // filename: (req, file, cb) => {
-    //     cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
-    // }
-    filename: (req, file, callback) => {
-        let imagePath = Date.now() + '-' +  (file.originalname);
-        callback(null, imagePath);
+// //IMAGE DISK STORAGE
+// const storage = multer.diskStorage({
+//     destination: './upload/images',
+//     // filename: (req, file, cb) => {
+//     //     cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
+//     // }
+//     filename: (req, file, callback) => {
+//         let imagePath = Date.now() + '-' +  (file.originalname);
+//         callback(null, imagePath);
     
-      },
-  });
-//IMAGE FILE FILTERS..
-const filefilter = (req, file, cb) => {
-    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
-        || file.mimetype === 'image/jpeg' || file.mimetype === 'application/pdf'){
-            cb(null, true);
-        }else {
-            cb(null, false);
-        }
-  }
-const upload= multer({storage:storage, fileFilter:filefilter}).single('image')
+//       },
+//   });
+// //IMAGE FILE FILTERS..
+// const filefilter = (req, file, cb) => {
+//     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
+//         || file.mimetype === 'image/jpeg' || file.mimetype === 'application/pdf'){
+//             cb(null, true);
+//         }else {
+//             cb(null, false);
+//         }
+//   }
+// const upload= multer({storage:storage, fileFilter:filefilter}).single('image')
 
 
 
 //post method start......................................
-// router.post("/post",upload.single('image'),checkauth,async(req,res,next)=>{
+router.post("/post",checkauth,async(req,res,next)=>{
 
-//     const {  name, age ,city, salary } = req.body;
+    const {  name, age ,city, salary } = req.body;
 
-//     if(!name || !age || !city || !salary )
-//     {
-//         res.status(400).send({error:"plz fill the data"})
-//     } else{
+    if(!name || !age || !city || !salary )
+    {
+        res.status(400).send({error:"plz fill the data"})
+    } else{
 
-//         req.user.password= undefined,          // password ko show nhi krwane ke ley
-//         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
+        req.user.password= undefined,          // password ko show nhi krwane ke ley
+        req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
       
-//         const user = new Employ({
+        const user = new Employ({
       
-//             name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
-//             // image: req.file.mimetype,
-//         })
-//         user.save().then(()=>{
-//         res.status(200).send(user)
+            name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
+            // image: req.file.mimetype,
+        })
+        user.save().then(()=>{
+        res.status(200).send(user)
     
-//         }).catch((err)=>{
-//         res.status(400).send(err)
-//         }) 
-//     }
-//   })
+        }).catch((err)=>{
+        res.status(400).send(err)
+        }) 
+    }
+  })
 //post method end......................................
 
-router.use('/profile', express.static('upload/images'));
-router.post("/post",checkauth,async(req,res,err)=>{
-    const {  name, age ,city, salary } = req.body;
+// router.use('/profile', express.static('upload/images'));
+// router.post("/post",checkauth,async(req,res,err)=>{
+
+//     const {  name, age ,city, salary } = req.body;
     
-    // if(!name || !age || !city || !salary ){
+//     // const image=req.body.file
 
-        // res.status(400).send({error:"plz fill the data"})
-    // }else{
-        req.user.password= undefined,  
-        req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
-        upload(req,res,(err)=>{
+//     // if(!name || !age || !city || !salary || !image ){
+
+//         // res.status(400).send({error:"plz fill the data"})
+//     // }else{
+//         req.user.password= undefined,  
+//         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
+//         upload(req,res,(err)=>{
             
-            if(err)
-            {
-                console.log(err);
-            }
-            else{
-                const user= new Employ({
+//             if(err)
+//             {
+//                 console.log(err);
+//             }
+//             else{
+//                 const user= new Employ({
                     
-                    name,age,city,salary,postedby:req.user,
-                    image: req.file.mimetype,
-                    // name,age,city,salary,postedby:req.user,
-                    // image: req.file.mimetype,
-                })
+//                     name,age,city,salary,postedby:req.user,
+//                     image: req.file.mimetype,
+//                 })
                 
-                user.save()
-                .then(()=>res.status(200).send({
+//                 user.save()
+//                 .then(()=>res.status(200).send({
                     
-                    image_url: `https://adminaman.herokuapp.com/profile/${req.file.filename}`,
-                    user
+//                     image_url: `https://adminaman.herokuapp.com/profile/${req.file.filename}`,
+//                     user
                     
-                }))
+//                 }))
                 
-            }   
-        })
+//             }   
+//         })
         
-    // }
+//     // }
         
-    })
-
-
-
-
-
-
-
+//     })
 
 
 router.get("/get/:id",checkauth,async(req,res)=>{
