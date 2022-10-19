@@ -4,7 +4,7 @@ import checkauth from "../middleware/auth.js";
 import adminauth from "../middleware/admin.js";
 import User from "../models/user.js"
 import multer from 'multer'
-
+import moment from 'moment'
 const router=express.Router()
 
 // // //IMAGE DISK STORAGE
@@ -49,7 +49,7 @@ router.post("/post",checkauth,async(req,res,next)=>{
         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
       
         const user = new Employ({
-  name,age,city,salary,date,postedby:req.user         //req.user me user login ki details hai
+            date :moment().format("MMM Do YY"),name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
         })
         
         const userdata = await Employ.findOne({ name:req.body.name}) 

@@ -14,7 +14,10 @@ const employSchema=new mongoose.Schema({
     city:{
         type:String
     },
-    date :{ type : Date, default: Date.now },
+    date:{
+        type:String,
+    },
+    
 
     // dateOfBirth: {
     //     type: Date,
