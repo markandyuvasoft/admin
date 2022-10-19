@@ -16,9 +16,9 @@ const employSchema=new mongoose.Schema({
     },
     date :{ type : Date, default: Date.now },
 
-    dateOfBirth: {
-        type: Date ,
-    },
+    // dateOfBirth: {
+    //     type: Date,
+    // },
     // file: 
     //     [Object],
     
@@ -32,8 +32,14 @@ const employSchema=new mongoose.Schema({
 
 },{versionKey: false})
 
-employSchema.set('timestamps',true)
+// employSchema.set('timestamps',true)
 
 const Employ=mongoose.model('employ',employSchema)
+
+
+// let dateOfBirth=new Date().toISOString()
+//     .replace('T', ' ')
+//     .replace('Z', '')
+
 
 export default Employ

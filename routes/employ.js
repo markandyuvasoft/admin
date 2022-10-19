@@ -35,9 +35,9 @@ const router=express.Router()
 //post method start......................................
 router.post("/post",checkauth,async(req,res,next)=>{
 
-    const {  name, age ,city, salary ,date,dateOfBirth} = req.body;
+    const {  name, age ,city, salary ,date} = req.body;
 
-    if(!name || !age || !city || !salary || !dateOfBirth)
+    if(!name || !age || !city || !salary)
     {
         res.status(400).send({error:"plz fill the data"})
     }else if(age<=18){
@@ -47,10 +47,11 @@ router.post("/post",checkauth,async(req,res,next)=>{
 
         req.user.password= undefined,          // password ko show nhi krwane ke ley
         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
+      
         const user = new Employ({
-
   name,age,city,salary,date,dateOfBirth,postedby:req.user         //req.user me user login ki details hai
         })
+        
         const userdata = await Employ.findOne({ name:req.body.name}) 
 
       if (userdata) {
@@ -58,7 +59,6 @@ router.post("/post",checkauth,async(req,res,next)=>{
         res.status(400).send({ error: "user already exist" })
   
       }else{
-
           user.save().then(()=>{
               
               res.status(201).send(user)
