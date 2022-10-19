@@ -40,7 +40,8 @@ router.post("/post",checkauth,async(req,res,next)=>{
     if(!name || !age || !city || !salary )
     {
         res.status(400).send({error:"plz fill the data"})
-    } else{
+    }
+     else{
 
         req.user.password= undefined,          // password ko show nhi krwane ke ley
         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
