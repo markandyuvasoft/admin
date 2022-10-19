@@ -35,9 +35,9 @@ const router=express.Router()
 //post method start......................................
 router.post("/post",checkauth,async(req,res,next)=>{
 
-    const {  name, age ,city, salary ,date} = req.body;
+    const {  name, age ,city, salary ,date,domain} = req.body;
 
-    if(!name || !age || !city || !salary)
+    if(!name || !age || !city || !salary || !domain)
     {
         res.status(400).send({error:"plz fill the data"})
     }else if(age<=18){
@@ -49,7 +49,7 @@ router.post("/post",checkauth,async(req,res,next)=>{
         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
       
         const user = new Employ({
-            date :moment().format('L'),name,age,city,salary,postedby:req.user         //req.user me user login ki details hai
+            date :moment().format('L'),name,age,city,salary,domain,postedby:req.user         //req.user me user login ki details hai
         })
         
         const userdata = await Employ.findOne({ name:req.body.name}) 
@@ -61,7 +61,7 @@ router.post("/post",checkauth,async(req,res,next)=>{
       }else{
           user.save().then(()=>{
               
-              res.status(201).send(user)
+              res.status(200).send(user)
               
             })
             .catch((err)=>{

@@ -17,7 +17,9 @@ const employSchema=new mongoose.Schema({
     date:{
         type:String,
     },
-    
+    domain:{
+        type:String,
+    },
 
     // dateOfBirth: {
     //     type: Date,
