@@ -39,13 +39,15 @@ const checkauth=(req,res,next)=>{
     Jwt.verify(token,"privatekey",(err,payload)=>{
         if(err){
          return   res.status(401).json({error:"only auth user"})
-        }
+        }else{
 
-        const {_id} = payload
-        User.findById(_id).then(userdata=>{
-            req.user = userdata
-            next()
-        })
+            
+            const {_id} = payload
+            User.findById(_id).then(userdata=>{
+                req.user = userdata
+                next()
+            })
+        }
         
         
     })
