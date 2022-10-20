@@ -76,10 +76,16 @@ userrouter.post("/update", checkauth,async (req, res, next) => {
   }
 })
 
-userrouter.get("/forget",async(req,res)=>{
+// userrouter.get("/forget",async(req,res)=>{
 
-  res.send("wel")
-})
+// try {
+  
+//   const token= req.query.token
+
+// } catch (error) {
+//   res.send("error")
+// }
+// })
 
 
 
