@@ -131,6 +131,8 @@ authrouter.post("/login",async(req,res,next)=>{
 
         let user = await User.findOne({email:req.body.email})
         
+        let Id=user._id
+
     if(!user){
             
     return res.status(404).send({error:"invalid email or password"}) 
@@ -152,7 +154,7 @@ authrouter.post("/login",async(req,res,next)=>{
 
     const date =moment().startOf('second').toString()
 
-    res.status(200).send({message:"welcome..!!",token,date})
+    res.status(200).send({message:"welcome..!!",token,Id,date})
 
 }
 }
