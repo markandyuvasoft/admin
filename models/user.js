@@ -31,17 +31,17 @@ const userSchema=new mongoose.Schema({
     },
     age:Number,
     
-    // token:{
-    //     type:String,
-    //     default:''
-    // },
-    tokens:[{
+    token:{
+        type:String,
+        default:''
+    },
+    // tokens:[{
 
-        token:{
-            type:String,
-            required:true
-        }
-    }],
+    //     token:{
+    //         type:String,
+    //         required:true
+    //     }
+    // }],
     isAdmin:
     {
       type:Boolean,
