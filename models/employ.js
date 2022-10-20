@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 var Schema= mongoose.Schema
 const {ObjectId}= mongoose.Schema.Types
-// book schema
+
 
 const employSchema=new mongoose.Schema({
     name:{
@@ -20,13 +20,6 @@ const employSchema=new mongoose.Schema({
     domain:{
         type:String,
     },
-
-    // dateOfBirth: {
-    //     type: Date,
-    // },
-    // file: 
-    //     [Object],
-    
     salary:{
         type:Number,
         },
