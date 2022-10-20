@@ -76,6 +76,13 @@ userrouter.post("/update", checkauth,async (req, res, next) => {
   }
 })
 
+userrouter.get("/forget",async(req,res)=>{
+
+  res.send("wel")
+})
+
+
+
 //FORGET PASSWORD API............................................................
 userrouter.post("/forget",checkauth,async (req, res) => {
   try {
