@@ -30,9 +30,12 @@ const secure = async (password) => {
 
         // const tokn = await Jwt.sign({ _id: id }, config.secret)
 
-         const tokn = await jwt.sign({ _id: id }, "privatekey")
+         const tokn = await jwt.sign({ _id: id }, "privatekey",{
 
-        return tokn
+          expiresIn:"1m"
+      })
+
+        return tokn 
 
     } catch (error) {
 
