@@ -171,7 +171,7 @@ authrouter.post("/login",async(req,res,next)=>{
 
     const  date =moment().format('L')
 
-    res.status(200).send({message:"😉welcome user..!!",token,Id,date})
+    res.status(200).send({success:"😉welcome user..!!",token,Id,date})
 
 }
 }
