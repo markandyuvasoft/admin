@@ -32,7 +32,7 @@ const secure = async (password) => {
 
          const tokn = await jwt.sign({ _id: id }, "privatekey",{
 
-          expiresIn:"1m"
+          expiresIn:"24h"
       })
 
         return tokn 
