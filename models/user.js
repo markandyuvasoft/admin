@@ -95,7 +95,7 @@ const userSchema=new mongoose.Schema({
         type:String
     },
     phone:{
-        type:Number
+        type:Number,
     },
     gender:{
         type:String
@@ -128,6 +128,8 @@ userSchema.methods.generateTokens = async function (){
     })
     return token
 } 
+
+
 
 const User=mongoose.model('user1',userSchema)
 
