@@ -153,7 +153,7 @@ authrouter.post("/login",async(req,res,next)=>{
         
         if(!user){
           
-          return res.status(404).send({error:"invalid email or password"}) 
+          return res.status(404).send({error:"invalid email"}) 
           
         }else if(user.isVarified === 0){
           
@@ -164,7 +164,7 @@ authrouter.post("/login",async(req,res,next)=>{
           
           if(!checkpassword){
             
-            return res.status(404).send({error:"invalid email or password"}) 
+            return res.status(404).send({error:"invalid password"}) 
           }
           const token=  await  createtoken(user._id) 
           
