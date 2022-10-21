@@ -33,24 +33,25 @@ adminrouter.post("/admin/login",async (req, res) => {
 
         const userdata= await User.findOne({email:email})
 
-        let Id=userdata._id
-
-        if(userdata){
-            const passwordmatch= await bcrypt.compare(password,userdata.password)
-
-            if(passwordmatch){
-                if(userdata.isAdmin===false){
-
-                    res.status(400).send({error:"you are not admin"})
-                }else{
-      const checkpassword = await bcrypt.compare(req.body.password,userdata.password);
-     
-      const token= await userdata.generateTokens()
-
-      // console.log(token);
         
-      const date =moment().format('L')
-
+        if(userdata){
+          const passwordmatch= await bcrypt.compare(password,userdata.password)
+          
+          if(passwordmatch){
+            if(userdata.isAdmin===false){
+              
+              res.status(400).send({error:"you are not admin"})
+            }else{
+              const checkpassword = await bcrypt.compare(req.body.password,userdata.password);
+              
+              const token= await userdata.generateTokens()
+              
+              // console.log(token);
+              
+              const date =moment().format('L')
+              
+              let Id=userdata._id
+              
       res.status(200).send({success:"😉welcome admin..!!",token,Id,date}) 
                 }
 
