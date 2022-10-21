@@ -75,16 +75,16 @@ html: '<p> hii ' + name + ', plz copy the link and <a href="https://adminaman.he
 //UPDATE USER PASSWORD.....................................................................................
 userrouter.post("/update", checkauth,async (req, res, next) => {
 
-  const userid = req.body.userid
+    const email = req.body.email
   const password = req.body.password
 
-  const data = await User.findOne({ _id: userid })
+  const data = await User.findOne({ email: email })
 
   if (data) {
 
       const newpswd = await secure(password)
 
-      const userdata = await User.findOneAndUpdate({ _id: userid }, {
+      const userdata = await User.findOneAndUpdate({ email: email }, {
           $set: {
 
               password: newpswd
