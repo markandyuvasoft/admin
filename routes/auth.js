@@ -101,7 +101,9 @@ authrouter.post("/register", async (req, res) => {
       return res.status(422).send({ error: "plz fill the field properly" })
     }
     else if(age<=18){
+    
       return res.status(422).send({ error: "only register adult user" })
+
     }
     else {
   
