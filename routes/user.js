@@ -93,7 +93,7 @@ userrouter.post("/update", checkauth,async (req, res, next) => {
 
       res.status(200).send({success:"successfully change your password"})
   } else {
-      res.status(400).send({error:"user id not found please try again"})
+      res.status(400).send({error:"user not found please try again"})
   }
 })
 
