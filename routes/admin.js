@@ -34,9 +34,8 @@ const createtoken = async (id) => {
 
       return tokn
 
-  } catch (error) {
-
-      res.send("error")
+  }
+   catch (error) {
   }
 }
 

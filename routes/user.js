@@ -2,7 +2,7 @@ import express from "express";
 import User from "../models/user.js"
 // import _ from 'lodash';
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import Jwt from 'jsonwebtoken'
 import checkauth from "../middleware/auth.js";
 import adminauth from "../middleware/admin.js";
 import randomstring from 'randomstring'
