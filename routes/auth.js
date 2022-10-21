@@ -124,7 +124,7 @@ authrouter.post("/register", async (req, res) => {
 
       const userdata1 = await user.save()
   
-        const token = user.generateTokens()
+        // const token = user.generateTokens()
    
         res.status(200).send({ message: "please check your mail and varify" })
        
