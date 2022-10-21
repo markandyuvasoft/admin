@@ -82,7 +82,7 @@ userrouter.post("/update", checkauth,async (req, res, next) => {
 
   if (data) {
 
-      const newpswd = await secure1(password)
+      const newpswd = await secure(password)
 
       const userdata = await User.findOneAndUpdate({ _id: userid }, {
           $set: {
