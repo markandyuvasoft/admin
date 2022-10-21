@@ -120,14 +120,14 @@ const userSchema=new mongoose.Schema({
     }
 },{versionKey: false})    
 
-// userSchema.methods.generateTokens = async function (){
+userSchema.methods.generateTokens = async function (){
 
-//     const token= jwt.sign({_id:this._id,isAdmin:this.isAdmin},'privatekey',{
+    const token= jwt.sign({_id:this._id,isAdmin:this.isAdmin},'privatekey',{
 
-//         expiresIn:"24h"
-//     })
-//     return token
-// }
+        expiresIn:"24h"
+    })
+    return token
+}
 
 const User=mongoose.model('user1',userSchema)
 

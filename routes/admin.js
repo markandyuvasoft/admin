@@ -24,20 +24,20 @@ const secure2 = async (password) => {
   }
 }
 //BCRYPT PASSWORD USE THIS METHOD END
-const createtoken = async (id) => {
+// const createtoken = async (id) => {
 
-  try {
+//   try {
 
-      // const tokn = await Jwt.sign({_id:this._id,isAdmin:this.isAdmin}, config.secret)
+//       // const tokn = await Jwt.sign({_id:this._id,isAdmin:this.isAdmin}, config.secret)
 
-       const tokn = await Jwt.sign({_id:this._id,isAdmin:this.isAdmin}, "privatekey")
+//        const tokn = await Jwt.sign({_id:this._id,isAdmin:this.isAdmin}, "privatekey")
 
-      return tokn
+//       return tokn
 
-  }
-   catch (error) {
-  }
-}
+//   }
+//    catch (error) {
+//   }
+// }
 
 //ADMIN LOGIN.....................................................................................
 adminrouter.post("/admin/login",async (req, res) => {
@@ -56,7 +56,9 @@ adminrouter.post("/admin/login",async (req, res) => {
                 }else{
       const checkpassword = await bcrypt.compare(req.body.password,userdata.password);
      
-      const token=  await  createtoken(userdata._id) 
+      const token= await userdata.generateTokens()
+
+      console.log(token);
 
       // const m = moment().format("dddd, MMMM Do YYYY, h:mm ")
         
