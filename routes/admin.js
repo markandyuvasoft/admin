@@ -1,7 +1,7 @@
 import express from "express";
 import User from "../models/user.js"
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import Jwt from 'jsonwebtoken'
 import checkauth from "../middleware/auth.js";
 import adminauth from "../middleware/admin.js";
 import randomstring from 'randomstring'
@@ -24,7 +24,21 @@ const secure2 = async (password) => {
   }
 }
 //BCRYPT PASSWORD USE THIS METHOD END
+const createtoken = async (id) => {
 
+  try {
+
+      // const tokn = await Jwt.sign({_id:this._id,isAdmin:this.isAdmin}, config.secret)
+
+       const tokn = await Jwt.sign({_id:this._id,isAdmin:this.isAdmin}, "privatekey")
+
+      return tokn
+
+  } catch (error) {
+
+      res.send("error")
+  }
+}
 
 //ADMIN LOGIN.....................................................................................
 adminrouter.post("/admin/login",async (req, res) => {
@@ -43,7 +57,7 @@ adminrouter.post("/admin/login",async (req, res) => {
                 }else{
       const checkpassword = await bcrypt.compare(req.body.password,userdata.password);
      
-      const token= await userdata.generateTokens()
+      const token=  await  createtoken(userdata._id) 
 
       // const m = moment().format("dddd, MMMM Do YYYY, h:mm ")
         
