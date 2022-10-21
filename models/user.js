@@ -127,7 +127,7 @@ userSchema.methods.generateTokens = async function (){
         expiresIn:"24h"
     })
     return token
-}
+} 
 
 const User=mongoose.model('user1',userSchema)
 

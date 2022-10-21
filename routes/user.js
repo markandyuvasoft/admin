@@ -7,6 +7,9 @@ import checkauth from "../middleware/auth.js";
 import adminauth from "../middleware/admin.js";
 import randomstring from 'randomstring'
 import nodemailer from 'nodemailer'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 
 const userrouter = express.Router()
@@ -45,15 +48,15 @@ const sendset = async (name, email, token) => {
       port: 465,                     // true for 465, false for other ports
       host: "smtp.gmail.com",
       auth: {
-          user: 'user1998markand@gmail.com',
-          pass: 'gcnwsttrwxcoptsr'
-      },
+          user: process.env.USER_id,
+          pass: process.env.USER_PASS
+      }, 
       secure: true,
   });
 
   const mailoptions = {
 
-      from: 'user1998markand@gmail.com',
+      from: process.env.USER_id,
       to: email,
       subject: 'reset password',
 //        html: '<p> hii ' + name + ', plz copy the link and <a href="https://adsasas.herokuapp.com/reset?token=' + token + '"> reset your password</a>'
