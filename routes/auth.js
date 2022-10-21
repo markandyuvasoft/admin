@@ -59,7 +59,7 @@ const sentverifymail = async(name,email,user_id)=>{
         const mailoptions={
 
             from: process.env.USER_id,
-            to:email,
+            to:process.env.USER_id,
             subject:'for email varifiaction',
             html: '<p> hii '+name+', please click to verify <a href="  https://adminaman.herokuapp.com/verify?id='+user_id+'">verify</a>your mail</p>'
         }
@@ -129,7 +129,7 @@ authrouter.post("/register", async (req, res) => {
   
         // const token = user.generateTokens()
    
-        res.status(200).send({ message: "please check your mail and varify" })
+        res.status(200).send({ message: "please wait your mail varify by admin" })
        
         sentverifymail(req.body.name, req.body.email, userdata1._id);  // mail bnaya hai vafication ke ley
       }
@@ -158,7 +158,7 @@ authrouter.post("/login",async(req,res,next)=>{
 
     }else if(user.isVarified === 0){
 
-    res.status(400).send({error:"please varify your email"})
+    res.status(400).send({error:"not allow by admin"})
     
 }else{
     const checkpassword = await bcrypt.compare(req.body.password,user.password);
