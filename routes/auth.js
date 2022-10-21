@@ -145,7 +145,7 @@ authrouter.post("/login",async(req,res,next)=>{
 
         let user = await User.findOne({email:req.body.email})
         
-        let Id=user._id
+        // let Id=user._id
 
     if(!user){
             
@@ -168,7 +168,7 @@ authrouter.post("/login",async(req,res,next)=>{
 
     const date =moment().startOf('second').toString()
 
-    res.status(200).send({message:"welcome..!!",token,Id,date})
+    res.status(200).send({message:"welcome..!!",token,date})
 
 }
 }
