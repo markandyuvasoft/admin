@@ -30,7 +30,7 @@ const createtoken = async (id) => {
 
       // const tokn = await Jwt.sign({_id:this._id,isAdmin:this.isAdmin}, config.secret)
 
-       const tokn = await Jwt.sign({ _id: id }, "privatekey")
+       const tokn = await Jwt.sign({_id:this._id,isAdmin:this.isAdmin}, "privatekey")
 
       return tokn
 
@@ -123,14 +123,14 @@ userrouter.post("/forget", async (req, res) => {
 
           sendset(userdata.name, userdata.email, randomString)
 
-          res.status(200).send("please check your mail and reset your password")
+          res.status(200).send({message:"please check your mail and reset your password"})
 
       } else {
-          res.status(400).send("email not exist")
+          res.status(400).send({message:"email not exist"})
       }
   } catch (error) {
 
-      res.status(400).send("error please try again")
+      res.status(400).send({message:"error please try again"})
   }
 })
 
@@ -154,11 +154,11 @@ userrouter.get("/reset", async (req, res) => {
 
           const userdata = await User.findByIdAndUpdate({ _id: tokendata._id }, { $set: { password: newpass, token: '' } }, { new: true })
 
-          res.status(200).send("user password is updated")
+          res.status(200).send({message:"user password is updated"})
 
       } else {
 
-          res.status(401).send("expire your link send again forget requiest")
+          res.status(401).send({message:"expire your link send again forget requiest"})
       }
   } catch (error) {
 
