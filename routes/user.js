@@ -73,7 +73,7 @@ html: '<p> hii ' + name + ', plz copy the link and <a href="https://adminaman.he
 }
 
 //UPDATE USER PASSWORD.....................................................................................
-userrouter.post("/update", checkauth,async (req, res, next) => {
+userrouter.post("/changePassword", checkauth,async (req, res, next) => {
 
     const email = req.body.email
   const password = req.body.password
