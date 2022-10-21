@@ -148,30 +148,30 @@ authrouter.post("/login",async(req,res,next)=>{
 
         let user = await User.findOne({email:req.body.email})
         
-         let Id=user._id
-
-        //  console.log(Id);
-
-    if(!user){
-            
-    return res.status(404).send({error:"invalid email or password"}) 
-
-    }else if(user.isVarified === 0){
-
-    res.status(400).send({error:"not allow by admin"})
-    
-}else{
-    const checkpassword = await bcrypt.compare(req.body.password,user.password);
-
-    if(!checkpassword){
         
-        return res.status(404).send({error:"invalid email or password"}) 
-    }
-    const token=  await  createtoken(user._id) 
-
-    const  date =moment().format('L')
-
-    res.status(200).send({success:"😉welcome user..!!",token,Id,date})
+        //  console.log(Id);
+        
+        if(!user){
+          
+          return res.status(404).send({error:"invalid email or password"}) 
+          
+        }else if(user.isVarified === 0){
+          
+          res.status(400).send({error:"not allow by admin"})
+          
+        }else{
+          const checkpassword = await bcrypt.compare(req.body.password,user.password);
+          
+          if(!checkpassword){
+            
+            return res.status(404).send({error:"invalid email or password"}) 
+          }
+          const token=  await  createtoken(user._id) 
+          
+          const  date =moment().format('L')
+          
+          let Id=user._id
+          res.status(200).send({success:"😉welcome user..!!",token,Id,date})
 
 }
 }
