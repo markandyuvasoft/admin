@@ -12,36 +12,54 @@ import nodemailer from 'nodemailer'
 const userrouter = express.Router()
 
 //BCRYPT PASSWORD USE THIS METHOD START
-const secure1 = async (password) => {
+const secure = async (password) => {
 
   try {
-    const passwordhash = await bcrypt.hash(password, 10)
-    return passwordhash
+      const passwordhash = await bcrypt.hash(password, 10)
+      return passwordhash
 
   } catch (error) {
-    res.status(400).send({ message: "error" })
+      res.status(400).send({ message: "error" })
   }
 }
 //BCRYPT PASSWORD USE THIS METHOD END
 
-//email send for reset password
-const sendset1 = async (name, email, token) => {
+const createtoken = async (id) => {
+
+  try {
+
+      // const tokn = await Jwt.sign({_id:this._id,isAdmin:this.isAdmin}, config.secret)
+
+       const tokn = await Jwt.sign({ _id: id }, "privatekey")
+
+      return tokn
+
+  } catch (error) {
+
+      res.send("error")
+  }
+}
+const sendset = async (name, email, token) => {
+
   const transporter = nodemailer.createTransport({
       port: 465,                     // true for 465, false for other ports
       host: "smtp.gmail.com",
       auth: {
-        user: process.env.USER_id,
-        pass: process.env.USER_PASS,
+          user: 'user1998markand@gmail.com',
+          pass: 'gcnwsttrwxcoptsr'
       },
       secure: true,
   });
+
   const mailoptions = {
 
-      from: process.env.USER_id,
+      from: 'user1998markand@gmail.com',
       to: email,
       subject: 'reset password',
-      html: '<p> hii ' + name + ', plz copy the link and <a href=" https://adminaman.herokuapp.com/forget?token=' + token + '"> reset your password</a>'
+//        html: '<p> hii ' + name + ', plz copy the link and <a href="https://adsasas.herokuapp.com/reset?token=' + token + '"> reset your password</a>'
+html: '<p> hii ' + name + ', plz copy the link and <a href="https://localhost:3000/reset?token=' + token + '"> reset your password</a>'
   };
+
   transporter.sendMail(mailoptions, function (err, info) {
       if (err)
           console.log(err)
@@ -90,31 +108,32 @@ userrouter.post("/update", checkauth,async (req, res, next) => {
 
 
 //FORGET PASSWORD API............................................................
-userrouter.post("/forget",checkauth,async (req, res) => {
+userrouter.post("/forget", async (req, res) => {
   try {
 
       const email = req.body.email
 
       const userdata = await User.findOne({ email: email })
 
-      if (userdata) { 
+      if (userdata) {
 
           const randomString = await randomstring.generate()
 
           const data = await User.updateOne({ email: email }, { $set: { token: randomString } })
 
-          sendset1(userdata.name, userdata.email, randomString)
+          sendset(userdata.name, userdata.email, randomString)
 
-          res.status(200).send({message:"please check your mail and reset your password"})
+          res.status(200).send("please check your mail and reset your password")
 
       } else {
-          res.status(400).send({error:"email not exist"})
+          res.status(400).send("email not exist")
       }
   } catch (error) {
 
-      res.status(400).send({error:"error please try again"})
+      res.status(400).send("error please try again")
   }
 })
+
 
 
 
@@ -131,15 +150,15 @@ userrouter.get("/reset", async (req, res) => {
       if (tokendata) {
 
           const password = req.body.password
-          const newpass = await secure1(password)
+          const newpass = await secure(password)
 
           const userdata = await User.findByIdAndUpdate({ _id: tokendata._id }, { $set: { password: newpass, token: '' } }, { new: true })
 
-          res.status(200).send({message:"successful reset your password"})
+          res.status(200).send("user password is updated")
 
       } else {
 
-          res.status(401).send({error:"expire your link send again forget requiest"})
+          res.status(401).send("expire your link send again forget requiest")
       }
   } catch (error) {
 

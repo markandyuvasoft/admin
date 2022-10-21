@@ -24,7 +24,21 @@ const secure = async (password) => {
     }
   }
   //BCRYPT PASSWORD USE THIS METHOD END
-  
+  const createtoken = async (id,res) => {
+
+    try {
+
+        // const tokn = await Jwt.sign({ _id: id }, config.secret)
+
+         const tokn = await jwt.sign({ _id: id }, "privatekey")
+
+        return tokn
+
+    } catch (error) {
+
+      res.send("error")
+    }
+}
 //verify mail register time start
 const sentverifymail = async(name,email,user_id)=>{
 
@@ -148,7 +162,7 @@ authrouter.post("/login",async(req,res,next)=>{
         
         return res.status(404).send({error:"invalid email or password"}) 
     }
-    const token=  await user.generateTokens()  
+    const token=  await  createtoken(user._id) 
 
     // const m = moment().format("dddd, MMMM Do YYYY, h:mm ")
 
