@@ -86,12 +86,6 @@ const userSchema=new mongoose.Schema({
         
     email:{
         type:String,
-        validate: {
-            validator: function (v) {
-              return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-            },
-            message: '{VALUE} is not a valid email!'
-          }
         },
     
     password:{
