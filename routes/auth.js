@@ -86,7 +86,7 @@ authrouter.get("/verify", async(req,res)=>{
     try {
  const update= await  User.updateOne({_id:req.query.id},{ $set:{isVarified:1}})
  
- res.status(200).send({message:"welcome your email is verify"})
+ res.status(200).send({success:"welcome your email is verify"})
     } catch (error) {
         res.status(400).send("err")
     }

@@ -41,7 +41,7 @@ adminrouter.post("/admin/login",async (req, res) => {
             if(passwordmatch){
                 if(userdata.isAdmin===false){
 
-                    res.status(400).send({message:"you are not admin"})
+                    res.status(400).send({error:"you are not admin"})
                 }else{
       const checkpassword = await bcrypt.compare(req.body.password,userdata.password);
      
@@ -51,15 +51,15 @@ adminrouter.post("/admin/login",async (req, res) => {
         
       const date =moment().format('L')
 
-      res.status(200).send({message:"😉welcome admin..!!",token,Id,date}) 
+      res.status(200).send({success:"😉welcome admin..!!",token,Id,date}) 
                 }
 
             }else{
-                res.status(400).send({message:"please try again"})
+                res.status(400).send({error:"please try again"})
             }
 
         }else{
-            res.status(400).send({message:"please try again"})
+            res.status(400).send({error:"please try again"})
         }
 })
 

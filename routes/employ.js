@@ -128,7 +128,7 @@ router.delete("/delete/:id",[checkauth,adminauth],async(req,res)=>{
 
         const del= await Employ.findByIdAndDelete(_id)
 
-        res.status(200).send({message: "deleted user data"})
+        res.status(200).send({success: "deleted user data"})
     }
     catch(err)
     {

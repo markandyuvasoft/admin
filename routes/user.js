@@ -22,7 +22,7 @@ const secure = async (password) => {
       return passwordhash
 
   } catch (error) {
-      res.status(400).send({ message: "error" })
+      res.status(400).send({ error: "error" })
   }
 }
 //BCRYPT PASSWORD USE THIS METHOD END
@@ -91,7 +91,7 @@ userrouter.post("/update", checkauth,async (req, res, next) => {
           }
       })
 
-      res.status(200).send({message:"successfully change your password"})
+      res.status(200).send({success:"successfully change your password"})
   } else {
       res.status(400).send({error:"user id not found please try again"})
   }
@@ -129,11 +129,11 @@ userrouter.post("/forget", async (req, res) => {
           res.status(200).send({message:"please check your mail and reset your password"})
 
       } else {
-          res.status(400).send({message:"email not exist"})
+          res.status(400).send({error:"email not exist"})
       }
   } catch (error) {
 
-      res.status(400).send({message:"error please try again"})
+      res.status(400).send({error:"error please try again"})
   }
 })
 
@@ -157,11 +157,11 @@ userrouter.get("/reset", async (req, res) => {
 
           const userdata = await User.findByIdAndUpdate({ _id: tokendata._id }, { $set: { password: newpass, token: '' } }, { new: true })
 
-          res.status(200).send({message:"user password is updated"})
+          res.status(200).send({success:"user password is updated"})
 
       } else {
 
-          res.status(401).send({message:"expire your link send again forget requiest"})
+          res.status(401).send({error:"expire your link send again forget requiest"})
       }
   } catch (error) {
 
