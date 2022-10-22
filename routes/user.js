@@ -190,7 +190,7 @@ userrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
       isVarified:0
     }
      const get= await User.findByIdAndUpdate(getid._id,data)
-     res.status(400).send({message:"block the user"})
+     res.status(400).send({message:"😭 block the user"})
     //  console.log(get);
   } else{
     const da1ta= {
@@ -198,7 +198,7 @@ userrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
     }
     const getid1= await User.findByIdAndUpdate(getid._id,da1ta)
     // console.log(getid1);
-    res.status(400).send({message:"unblock the user"})
+    res.status(400).send({message:"🤗 unblock the user"})
   }
     } catch (error) {
       res.status(400).send("error")
