@@ -168,7 +168,7 @@ userrouter.get("/reset", async (req, res) => {
   }
 })
 
-userrouter.put("/block/:id",async(req,res)=>{
+userrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
     try {
       
       const _id= req.params.id
