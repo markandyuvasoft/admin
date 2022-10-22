@@ -157,7 +157,7 @@ userrouter.get("/reset", async (req, res) => {
 
           const userdata = await User.findByIdAndUpdate({ _id: tokendata._id }, { $set: { password: newpass, token: '' } }, { new: true })
 
-          res.status(200).send({success:"user password is updated"})
+          res.status(200).send({success:"succesfully reset your password"})
 
       } else {
 
