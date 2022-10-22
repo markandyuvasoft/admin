@@ -41,7 +41,12 @@ adminrouter.post("/admin/login",async (req, res) => {
             if(userdata.isAdmin===false){
               
               res.status(400).send({error:"you are not admin"})
-            }else{
+            }else if(userdata.isVarified === 0){
+          
+              res.status(400).send({error:"you block by super admin"})
+              
+            }
+            else{
               const checkpassword = await bcrypt.compare(req.body.password,userdata.password);
               
               const token= await userdata.generateTokens()
