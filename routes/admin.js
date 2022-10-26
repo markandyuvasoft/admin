@@ -25,6 +25,40 @@ const secure2 = async (password) => {
 }
 //BCRYPT PASSWORD USE THIS METHOD END
 
+
+
+//FOR BLOCKING USER MAIL START......
+const sentverifymail = async(email)=>{
+  try {
+      const transporter = nodemailer.createTransport({
+          port: 465,                     // true for 465, false for other ports
+          host: "smtp.gmail.com",
+          auth: {
+              user: process.env.USER_id,
+              pass: process.env.USER_PASS,
+          },
+          secure: true,
+      });
+      const mailoptions={
+
+          from: process.env.USER_id,
+          to:email,
+          subject:'Blocking user',
+          html: '<p> your account was blocked by admin</p>'
+      }
+      transporter.sendMail(mailoptions, function (err, info) {
+          if (err)
+              console.log(err)
+          else
+              res.status(200).send(mailoptions)
+      });
+  } catch (error) {
+   
+      res.status(400).send("error")
+  }
+}
+//FOR BLOCKING USER MAIL END......
+
 //ADMIN LOGIN.....................................................................................
 adminrouter.post("/admin/login",async (req, res) => {
 
@@ -89,8 +123,9 @@ const data= {
   isVarified:0
 }
  const get= await User.findByIdAndUpdate(getid._id,data)
+ 
  res.status(400).send({message:"block the user"})
-//  sentverifymail(req.body.email);
+  sentverifymail(req.body.email);
 
 } else{
 res.status(400).send({message:"user already blocked"})
