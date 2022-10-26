@@ -136,7 +136,7 @@ adminrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
       sentverifymail(req.body.email);
       
     } else{
-      res.status(400).send("user already blocked")
+      res.status(400).send({message:"user already blocked"})
     }
   }
 }
