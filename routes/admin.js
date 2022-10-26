@@ -106,29 +106,39 @@ adminrouter.post("/admin/login",async (req, res) => {
 //BLOCK THE USER START.............
 adminrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
 
-  const _id= req.params.id
-  // const _id= req.params.id
-  const isVarified= req.body.isVarified
+  const {email}=req.body;
+  if(!email){
+    
+    res.status(400).send({error:"please fill the proper field "})
+}else{
+  let user = await User.findOne({email:req.body.email})
 
-  const getid= await User.findByIdAndUpdate(_id,req.body.isVarified,{
-    new:true
-  })
-  const data= {
-    isVarified:1
+  if(!user){
+    return res.status(404).send({error:"invalid email or password"}) 
+    
+  }else{
+    const _id= req.params.id
+    const isVarified= req.body.isVarified
+    
+    const getid= await User.findByIdAndUpdate(_id,req.body.isVarified,{
+      new:true
+    })
+    const data= {
+      isVarified:1
+    }
+    if(getid.isVarified==1){
+      
+      const data= {
+        isVarified:0
+      }
+      const get= await User.findByIdAndUpdate(getid._id,data)
+      res.status(200).send({success:"block the user"})
+      sentverifymail(req.body.email);
+      
+    } else{
+      res.status(400).send("try again")
+    }
   }
-
-if(getid.isVarified==1){
-
-const data= {
-  isVarified:0
-}
- const get= await User.findByIdAndUpdate(getid._id,data)
- 
- res.status(400).send({message:"block the user"})
-  sentverifymail(req.body.email);
-
-} else{
-res.status(400).send({message:"user already blocked"})
 }
 })
 
@@ -152,7 +162,7 @@ if(getid.isVarified==0){
     }
     const getid1= await User.findByIdAndUpdate(getid._id,da1ta)
 
-    res.status(400).send({message:"unblock the user"})
+    res.status(200).send({success:"unblock the user"})
   }
   else{
 res.status(400).send({message:"user already unblock"})

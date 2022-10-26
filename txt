@@ -214,3 +214,34 @@
 //       res.status(400).send("error")
 //     }
 //   })
+
+
+//INDIVIDUAL BLOCK
+
+// adminrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
+
+//     const _id= req.params.id
+//     // const _id= req.params.id
+//     const isVarified= req.body.isVarified
+  
+//     const getid= await User.findByIdAndUpdate(_id,req.body.isVarified,{
+//       new:true
+//     })
+//     const data= {
+//       isVarified:1
+//     }
+  
+//   if(getid.isVarified==1){
+  
+//   const data= {
+//     isVarified:0
+//   }
+//    const get= await User.findByIdAndUpdate(getid._id,data)
+   
+//    res.status(400).send({message:"block the user"})
+//     sentverifymail(req.body.email);
+  
+//   } else{
+//   res.status(400).send({message:"user already blocked"})
+//   }
+//   })
