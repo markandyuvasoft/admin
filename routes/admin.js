@@ -91,7 +91,7 @@ const data= {
  res.status(400).send({message:"block the user"})
 
 } else{
-res.status(400).send({message:"try again"})
+res.status(400).send({message:"user already blocked"})
 }
 })
 
@@ -118,7 +118,7 @@ if(getid.isVarified==0){
     res.status(400).send({message:"unblock the user"})
   }
   else{
-res.status(400).send({message:"try again"})
+res.status(400).send({message:"user already unblock"})
 }
 })
 
