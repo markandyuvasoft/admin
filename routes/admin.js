@@ -73,6 +73,7 @@ adminrouter.post("/admin/login",async (req, res) => {
 adminrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
 
   const _id= req.params.id
+  // const _id= req.params.id
   const isVarified= req.body.isVarified
 
   const getid= await User.findByIdAndUpdate(_id,req.body.isVarified,{
