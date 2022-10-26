@@ -137,10 +137,6 @@ userrouter.post("/forget", async (req, res) => {
   }
 })
 
-
-
-
-
 //RESET PASSWORD API START.......................................................
 userrouter.get("/reset", async (req, res) => {
 
@@ -167,47 +163,5 @@ userrouter.get("/reset", async (req, res) => {
 
   }
 })
-
-// userrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
-//     try {
-      
-//       const _id= req.params.id
-//       // console.log(_id);
-//       const isVarified= req.body.isVarified
-  
-//       const getid= await User.findByIdAndUpdate(_id,req.body.isVarified,{
-//         new:true
-//       })
-//       // console.log(getid);
-  
-//       const data= {
-//         isVarified:0
-//       }
-//   if(getid.isVarified==1){
-//     //  user.isVarified=1;
-  
-//     const data= {
-//       isVarified:0
-//     }
-//      const get= await User.findByIdAndUpdate(getid._id,data)
-//      res.status(200).send({success:"😭 block the user"})
-//     //  console.log(get);
-//   } else{
-//     const da1ta= {
-//       isVarified:1
-//     }
-//     const getid1= await User.findByIdAndUpdate(getid._id,da1ta)
-//     // console.log(getid1);
-//     res.status(200).send({success:"🤗 unblock the user"})
-//   }
-//     } catch (error) {
-//       res.status(400).send("error")
-//     }
-//   })
-  
-  
-
-
-
 export default userrouter
 
