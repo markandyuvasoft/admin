@@ -79,6 +79,10 @@ import jwt from 'jsonwebtoken'
 
 const userSchema=new mongoose.Schema({
 
+    _id:{
+        type:String,
+    },
+
     name:{
         type:String,
     

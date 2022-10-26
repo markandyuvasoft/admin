@@ -90,6 +90,7 @@ const data= {
 }
  const get= await User.findByIdAndUpdate(getid._id,data)
  res.status(400).send({message:"block the user"})
+//  sentverifymail(req.body.email);
 
 } else{
 res.status(400).send({message:"user already blocked"})
