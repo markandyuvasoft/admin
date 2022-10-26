@@ -109,12 +109,12 @@ adminrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
   const {email}=req.body;
   if(!email){
     
-    res.status(400).send({error:"please fill the proper field "})
+    res.status(400).send({error:"please fill the email field "})
 }else{
   let user = await User.findOne({email:req.body.email})
 
   if(!user){
-    return res.status(404).send({error:"invalid email or password"}) 
+    return res.status(404).send({error:"invalid email"}) 
     
   }else{
     const _id= req.params.id
@@ -136,7 +136,7 @@ adminrouter.put("/block/:id",[checkauth,adminauth],async(req,res)=>{
       sentverifymail(req.body.email);
       
     } else{
-      res.status(400).send("try again")
+      res.status(400).send("user already blocked")
     }
   }
 }
