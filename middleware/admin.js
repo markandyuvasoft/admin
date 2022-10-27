@@ -12,8 +12,10 @@ const adminauth=(req,res,next)=>{
         if(!isAdmin)
         {
             return res.status(403).send({error:'you are not admin user'})
+        }else{
+
+            next()
         }
-        next()
         
 }
 
