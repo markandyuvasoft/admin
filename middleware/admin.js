@@ -19,8 +19,4 @@ const adminauth=(req,res,next)=>{
         
 }
 
-
-
-
-
 export default adminauth;

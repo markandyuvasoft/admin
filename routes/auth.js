@@ -100,6 +100,10 @@ authrouter.post("/register", async (req, res) => {
   
       return res.status(422).send({ error: "plz fill the field properly" })
     }
+    if (phone<10) {
+      
+      res.status(400).send({error:"phone number must be 10 digit"})
+   }
     else if(age<=18){
     
       return res.status(422).send({ error: "only register adult user" })
@@ -145,7 +149,8 @@ authrouter.post("/login",async(req,res,next)=>{
     if(!email || !password){
     
         res.status(400).send({error:"please fill the proper field "})
-    }else{
+    }   
+    else{
 
         let user = await User.findOne({email:req.body.email})
         
