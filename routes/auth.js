@@ -99,8 +99,12 @@ authrouter.post("/register", async (req, res) => {
   
     if (!name || !email || !password || !cpassword || !phone || !gender || !address || !age) {
   
-      return res.status(422).send({ error: "plz fill the field properly" })
+      return res.status(422).send({ error: "please fill the field properly" })
     }
+    if(!phone || phone.toString().length!=10){
+      return res.status(422).send({ error: "mobile number must be 10 digit" })
+     }
+
     else if(age<=18){
     
       return res.status(422).send({ error: "only register adult user" })
