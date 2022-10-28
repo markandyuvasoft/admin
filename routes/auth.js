@@ -95,11 +95,16 @@ authrouter.get("/verify", async(req,res)=>{
 authrouter.post("/register", async (req, res) => {
   
   const { name, email, password, cpassword,phone,gender, address,age} = req.body
-
+  var emailRegex =  /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   
-    if (!name || !email || !password || !cpassword || !phone || !gender || !address || !age) {
+  if (!name || !email || !password || !cpassword || !phone || !gender || !address || !age) {
+    
+    return res.status(422).send({ error: "please fill the field properly" })
+  }  
+  var valid = emailRegex.test(email);
   
-      return res.status(422).send({ error: "please fill the field properly" })
+  if(!valid){
+    return res.status(422).send({ error: "Email is not valid." })
     }
     if(phone.toString().length!=10){
 
