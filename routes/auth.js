@@ -101,7 +101,8 @@ authrouter.post("/register", async (req, res) => {
   
       return res.status(422).send({ error: "please fill the field properly" })
     }
-    if(!phone || phone.toString().length!=10){
+    if(phone.toString().length!=10){
+
       return res.status(422).send({ error: "mobile number must be 10 digit" })
      }
 
