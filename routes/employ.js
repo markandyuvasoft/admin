@@ -3,6 +3,7 @@ import Employ from "../models/employ.js"
 import checkauth from "../middleware/auth.js";
 import adminauth from "../middleware/admin.js";
 import User from "../models/user.js"
+import multer from 'multer'
 import moment from 'moment'
 const router=express.Router()
 
