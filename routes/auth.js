@@ -104,17 +104,17 @@ authrouter.post("/register", async (req, res) => {
   var valid = emailRegex.test(email);
 
   if (!valid) {
-    return res.status(422).send({ error: "Email is not valid." })
+    return res.status(422).send({ error: "you have enter a valid email address." })
   }
   if (phone.toString().length != 10) {
 
     return res.status(422).send({ error: "mobile number must be 10 digit" })
   }
 
-  else if (age <= 18) {
+  else if(age<=18 || age>=60){
 
-    return res.status(422).send({ error: "only register adult user" })
-  }
+    return res.status(400).send({error:"your age should be in between 18 to 60 then only you can apply"})
+}
   else {
 
     const spassword = await secure(req.body.password)

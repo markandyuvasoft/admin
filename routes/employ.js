@@ -7,48 +7,93 @@ import moment from 'moment'
 const router=express.Router()
 
 
-//post method start......................................
-router.post("/post",checkauth,async(req,res,next)=>{
+// //post method start......................................
+// router.post("/post",checkauth,async(req,res,next)=>{
+
+//     const {  name, age ,city, salary ,date,domain} = req.body;
+
+//     if(!name || !age || !city || !salary || !domain)
+//     {
+//         res.status(400).send({error:"plz fill the data"})
+//     }else if(age<=18){
+
+//         res.status(400).send({error:"only adult user"})
+//     } else{
+
+//         req.user.password= undefined,          // password ko show nhi krwane ke ley
+//         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
+      
+//         const user = new Employ({
+//             date :moment().format('L'),name,age,city,salary,domain,postedby:req.user         //req.user me user login ki details hai
+//         })
+        
+//         const userdata = await Employ.findOne({ name:req.body.name}) 
+
+//       if (userdata) {
+  
+//         res.status(400).send({ error: "user already exist" })
+  
+//       }else{
+//           user.save().then(()=>{
+              
+//               res.status(200).send(user)
+              
+//             })
+//             .catch((err)=>{
+                
+//                 res.status(400).send(err)
+                
+//             }) 
+//         }
+//     }
+//   })
+// //post method end......................................
+
+
+const storage = multer.diskStorage({
+    destination: './upload/images',
+    filename: (req, file, cb) => {
+        cb(null, file.originalname)
+    }
+})
+const upload = multer({  storage: storage})
+
+
+router.post("/post", upload.single('image'), checkauth,async (req, res, next) => {
 
     const {  name, age ,city, salary ,date,domain} = req.body;
 
-    if(!name || !age || !city || !salary || !domain)
+    const image= req.file
+
+    if(!name || !age || !city || !salary || !domain || !image)
     {
         res.status(400).send({error:"plz fill the data"})
-    }else if(age<=18){
 
-        res.status(400).send({error:"only adult user"})
-    } else{
+    }else if(age<18 || age>=60){
 
+        res.status(400).send({error:"your age should be in between 18 to 60 then only you can apply"})
+    }else{
         req.user.password= undefined,          // password ko show nhi krwane ke ley
         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
-      
+
         const user = new Employ({
-            date :moment().format('L'),name,age,city,salary,domain,postedby:req.user         //req.user me user login ki details hai
-        })
+            date :moment().format('L'),
+            name,age,city,salary,domain,postedby:req.user,         //req.user me user login ki details hai
+            image: req.file.filename,
         
+        });
         const userdata = await Employ.findOne({ name:req.body.name}) 
 
-      if (userdata) {
-  
-        res.status(400).send({ error: "user already exist" })
-  
-      }else{
-          user.save().then(()=>{
-              
-              res.status(200).send(user)
-              
-            })
-            .catch((err)=>{
-                
-                res.status(400).send(err)
-                
-            }) 
-        }
-    }
-  })
-//post method end......................................
+            if (userdata) {
+            res.status(400).send({ error: "user already exist" })
+              }else{
 
+                  await user.save();
+                  res.status(201).send(user);
+                }
+    }
+        
+})
 
 
 router.get("/get/:id",checkauth,async(req,res)=>{

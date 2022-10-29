@@ -20,6 +20,12 @@ const employSchema=new mongoose.Schema({
     domain:{
         type:String,
     },
+    file:{
+        type:String
+        },
+    image:{
+        type:Buffer,
+        },
     salary:{
         type:Number,
         },
