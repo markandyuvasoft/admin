@@ -50,7 +50,7 @@ const router=express.Router()
 //   })
 // //post method end......................................
 
-
+// = multer.diskStorage({
 const storage = multer.diskStorage({
     destination: './upload/images',
     filename: (req, file, cb) => {
