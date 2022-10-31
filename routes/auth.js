@@ -75,6 +75,35 @@ const sentverifymail = async (name, email, user_id) => {
   }
 }
 
+// verify time mail sent
+const verify = async(email)=>{
+
+  // console.log(data);
+
+      const transporter = nodemailer.createTransport({
+          port: 465,                     // true for 465, false for other ports
+          host: "smtp.gmail.com",
+          auth: {
+              user: process.env.USER_id,
+            pass: process.env.USER_PASS,
+          },
+          secure: true,
+      });
+      const mailoptions={
+
+          from:process.env.USER_id,
+          to:email,
+          subject:'for varifiaction message',
+          html: '<p> your account was varified by admin </p>'
+      }
+      transporter.sendMail(mailoptions, function (err, info) {
+          if (err)
+              console.log(err)
+          else
+              res.status(200).send(mailoptions)
+      });
+
+}
 
 
 // authrouter.get("/profile", checkauth, async (req, res) => {  
@@ -82,11 +111,20 @@ const sentverifymail = async (name, email, user_id) => {
 //     res.status(200).send(profile)
 // })
 
+
+var userr=""        // varify time mail sent ke ley
+
 authrouter.get("/verify", async (req, res) => {
+
   try {
+
     const update = await User.updateOne({ _id: req.query.id }, { $set: { isVarified: 1 } })
 
-    res.status(200).send({ success: "welcome your email is verify" })
+    res.status(200).send({ success: "welcome user mail varify" })
+
+
+    verify(userr);
+
   } catch (error) {
     res.status(400).send("err")
   }
@@ -138,6 +176,8 @@ authrouter.post("/register", async (req, res) => {
     else {
 
       const userdata1 = await user.save()
+
+      userr=userdata1.email    // varify time mail sent ke ley
 
       res.status(200).send({ message: "please wait your mail varify by admin" })
 
