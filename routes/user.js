@@ -42,6 +42,8 @@ const createtoken = async (id) => {
       res.send("error")
   }
 }
+
+//FORGET TIME MAIL SSENT PROCESS
 const sendset = async (name, email, token) => {
 
   const transporter = nodemailer.createTransport({

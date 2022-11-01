@@ -75,7 +75,7 @@ router.post("/post", upload.single('image'), checkauth,async (req, res, next) =>
         res.status(400).send({error:"your age should be in between 18 to 60 then only you can apply"})
     }else{
         req.user.password= undefined,          // password ko show nhi krwane ke ley
-        req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined    
+        req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined ,req.user.age= undefined   
 
         const user = new Employ({
             date :moment().format('L'),
@@ -90,7 +90,7 @@ router.post("/post", upload.single('image'), checkauth,async (req, res, next) =>
               }else{
 
                   await user.save();
-                  res.status(201).send(user);
+                  res.status(200).send(user);
                 }
     }
         

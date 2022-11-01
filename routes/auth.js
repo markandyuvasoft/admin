@@ -112,8 +112,9 @@ const verify = async(email)=>{
 // })
 
 
-var userr=""        // varify time mail sent ke ley
+var userr=""        // varify time mail sent ke ley blank varible
 
+// varify route start
 authrouter.get("/verify", async (req, res) => {
 
   try {
@@ -130,6 +131,8 @@ authrouter.get("/verify", async (req, res) => {
   }
 })
 
+
+//register route start
 authrouter.post("/register", async (req, res) => {
 
   const { name, email, password, cpassword, phone, gender, address, age } = req.body
