@@ -62,6 +62,8 @@ const upload = multer({  storage: storage})
 
 router.post("/post", upload.single('image'), checkauth,async (req, res, next) => {
 
+    try {
+
     const {  name, age ,city, salary ,date,domain} = req.body;
 
     const image= req.file
@@ -93,6 +95,9 @@ router.post("/post", upload.single('image'), checkauth,async (req, res, next) =>
                   res.status(200).send(user);
                 }
     }
+} catch (error) {
+    res.status(400).send({error:"token is invalid user not found"})
+}
         
 })
 
