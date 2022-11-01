@@ -230,6 +230,27 @@ authrouter.post("/login", async (req, res, next) => {
 //post method user register HIDE PASSWORD and BCRYPT PASSWORD end......................................
 
 
+//REGISTER USER DETAILS FIND 
+authrouter.get('/userProfile', checkauth , async (req, res) => {
+
+  try {
+
+    const get = await User.find({ _id: req.user._id })
+
+    if (get) {
+
+      res.status(200).send({ success: "user details..", get })
+
+    } else {
+      res.status(400).send({ error: "not found user detail" })
+    }
+  } catch (error) {
+
+    res.status(400).send({ error: "token is invalid user not found" })
+  }
+});
+
+
 
 export default authrouter
 
