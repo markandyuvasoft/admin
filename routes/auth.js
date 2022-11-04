@@ -264,5 +264,25 @@ const data={
 
 
 
+authrouter.put("/updateUser/:id",async(req,res)=>{
+
+  try {
+
+    const _id = req.params.id
+
+    const getid = await User.findByIdAndUpdate(_id, req.body, {
+
+      new: true
+    })
+    getid.isAdmin=undefined, getid.token=undefined,  getid.isVarified=undefined
+   
+    res.status(200).send(getid)
+    
+  } catch (error) {
+    res.status(400).send({ error: "token is invalid user not found" })
+  }
+})
+
+
 export default authrouter
 
