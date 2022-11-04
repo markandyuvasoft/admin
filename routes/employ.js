@@ -106,7 +106,7 @@ const storage = multer.diskStorage({
   
   router.use('/image', express.static('upload/images'));
   router.post("/post",checkauth ,async (req, res) => {
-    upload(req,res,(err)=>{
+    upload(req,res,async (err)=>{
   
       if(err)
       {
@@ -141,12 +141,16 @@ const storage = multer.diskStorage({
                   file_url: `https://adminaman.herokuapp.com/image/${req.file.filename}`,
                 }
               });
+              const userdata = await Employ.findOne({ name:req.body.name}) 
+              if (userdata) {
+                res.status(400).send({ error: "user already exist" })
+                }else{
               user.save()
               .then(()=>res.json({
                 success: 1,
                 user
               }))
-              
+            }
             }
           }
         } catch (error) {
