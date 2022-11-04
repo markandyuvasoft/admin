@@ -222,7 +222,11 @@ router.put("/update/:id",checkauth,async(req,res)=>{
     const _id= req.params.id
 
     const getid= await Employ.findByIdAndUpdate(_id,req.body,{
-      image:image.name,
+      image:{
+        data:image.name,
+        contentType:'image/png',
+        file_url: `http://localhost:3000/profile/${image.name}`,
+      },
     new:true
      })
 
