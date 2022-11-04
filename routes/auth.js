@@ -231,20 +231,32 @@ authrouter.post("/login", async (req, res, next) => {
 
 
 //REGISTER USER DETAILS FIND HELP OF TOKEN
-authrouter.get('/userProfile', checkauth , async (req, res) => {
+authrouter.get('/userProfile', checkauth, async (req, res) => {
 
   try {
+    
+    const details = await User.find({ _id: req.user._id })
 
-    const get = await User.find({ _id: req.user._id })
+    if (details) {
 
-    if (get) {
-
-      res.status(200).send({ success: "user details..", get })
-
-    } else {
+const data={
+      "_id":req.user._id,
+      "name": req.user.name,
+      "email":req.user.email,
+      "password":req.user.password,
+      "cpassword":req.user.cpassword,
+      "phone": req.user.phone,
+      "gender": req.user.gender,
+      "address":req.user.address,
+      "age": req.user.age,
+}
+      res.status(200).send({ success: "user details..", data })
+    }
+    else {
       res.status(400).send({ error: "not found user detail" })
     }
-  } catch (error) {
+  }
+  catch (err) {
 
     res.status(400).send({ error: "token is invalid user not found" })
   }

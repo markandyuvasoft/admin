@@ -50,15 +50,6 @@ const router=express.Router()
 //   })
 // //post method end......................................
 
-// = multer.diskStorage({
-// const storage = multer.diskStorage({
-//     destination: './upload/images',
-//     filename: (req, file, cb) => {
-//         cb(null, file.originalname)
-//     }
-// })
-// const upload = multer({  storage: storage})
-
 
 // router.post("/post", upload.single('image'), checkauth,async (req, res, next) => {
 
@@ -131,8 +122,7 @@ const storage = multer.diskStorage({
             res.status(400).send({error:"please fill the data"})
          
           }else{
-  
-            
+   
             if(age<18 || age>=60){
               
               res.status(400).send({error:"your age should be in between 18 to 60 then only you can apply"})
