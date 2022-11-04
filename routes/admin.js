@@ -59,6 +59,21 @@ const sentverifymail = async (email) => {
 }
 //FOR BLOCKING USER MAIL END......
 
+//ALL REGISTER USER DETAILS FIND AUTH AND ONLY ADMIN......................................
+adminrouter.get("/allUser",[checkauth,adminauth],async(req,res)=>{
+
+  try {
+    
+      const get = await User.find({})
+
+      res.status(200).send(get)
+
+  } catch (error) {
+    
+    res.status(400).send("error")
+  }
+})
+
 //ADMIN LOGIN.....................................................................................
 adminrouter.post("/admin/login", async (req, res) => {
 

@@ -230,7 +230,7 @@ authrouter.post("/login", async (req, res, next) => {
 //post method user register HIDE PASSWORD and BCRYPT PASSWORD end......................................
 
 
-//REGISTER USER DETAILS FIND 
+//REGISTER USER DETAILS FIND HELP OF TOKEN
 authrouter.get('/userProfile', checkauth , async (req, res) => {
 
   try {

@@ -51,55 +51,120 @@ const router=express.Router()
 // //post method end......................................
 
 // = multer.diskStorage({
+// const storage = multer.diskStorage({
+//     destination: './upload/images',
+//     filename: (req, file, cb) => {
+//         cb(null, file.originalname)
+//     }
+// })
+// const upload = multer({  storage: storage})
+
+
+// router.post("/post", upload.single('image'), checkauth,async (req, res, next) => {
+
+//     try {
+
+//     const {  name, age ,city, salary ,date,domain} = req.body;
+
+//     const image= req.file
+
+//     if(!name || !age || !city || !salary || !domain || !image)
+//     {
+//         res.status(400).send({error:"plz fill the data"})
+
+//     }else if(age<18 || age>=60){
+
+//         res.status(400).send({error:"your age should be in between 18 to 60 then only you can apply"})
+//     }else{
+//         req.user.password= undefined,          // password ko show nhi krwane ke ley
+//         req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined ,req.user.age= undefined   
+
+//         const user = new Employ({
+//             date :moment().format('L'),
+//             name,age,city,salary,domain,postedby:req.user,         //req.user me user login ki details hai
+//             image: req.file.filename,
+        
+//         });
+//         const userdata = await Employ.findOne({ name:req.body.name}) 
+
+//             if (userdata) {
+//             res.status(400).send({ error: "user already exist" })
+//               }else{
+
+//                   await user.save();
+//                   res.status(200).send(user);
+//                 }
+//     }
+// } catch (error) {
+//     res.status(400).send({error:"token is invalid user not found"})
+// }
+        
+// })
+
+
 const storage = multer.diskStorage({
     destination: './upload/images',
     filename: (req, file, cb) => {
-        cb(null, file.originalname)
+      cb(null, file.originalname)
     }
-})
-const upload = multer({  storage: storage})
-
-
-router.post("/post", upload.single('image'), checkauth,async (req, res, next) => {
-
-    try {
-
-    const {  name, age ,city, salary ,date,domain} = req.body;
-
-    const image= req.file
-
-    if(!name || !age || !city || !salary || !domain || !image)
-    {
-        res.status(400).send({error:"plz fill the data"})
-
-    }else if(age<18 || age>=60){
-
-        res.status(400).send({error:"your age should be in between 18 to 60 then only you can apply"})
-    }else{
-        req.user.password= undefined,          // password ko show nhi krwane ke ley
-        req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined ,req.user.age= undefined   
-
-        const user = new Employ({
-            date :moment().format('L'),
-            name,age,city,salary,domain,postedby:req.user,         //req.user me user login ki details hai
-            image: req.file.filename,
+  })
+  
+  const upload = multer({
+    storage: storage
+  }).single('profile')
+  
+  router.use('/profile', express.static('upload/images'));
+  router.post("/post",checkauth ,async (req, res) => {
+    upload(req,res,(err)=>{
+  
+      if(err)
+      {
+          console.log(err);
+      }else{
         
-        });
-        const userdata = await Employ.findOne({ name:req.body.name}) 
-
-            if (userdata) {
-            res.status(400).send({ error: "user already exist" })
-              }else{
-
-                  await user.save();
-                  res.status(200).send(user);
+        try {
+          
+          const {  name, age ,city, salary ,date,domain} = req.body;
+          const image= req.file
+  
+          if(!name || !age || !city || !salary || !domain || !image){
+            res.status(400).send({error:"please fill the data"})
+         
+          }else{
+  
+            
+            if(age<18 || age>=60){
+              
+              res.status(400).send({error:"your age should be in between 18 to 60 then only you can apply"})
+            }else{
+               req.user.password= undefined,          // password ko show nhi krwane ke ley
+               req.user.email= undefined , req.user.gender= undefined ,req.user.address= undefined , req.user.cpassword= undefined , req.user.token= undefined , req.user.phone= undefined ,req.user.name= undefined,  req.user.token= undefined ,   req.user.tokens= undefined ,req.user.age= undefined   
+              
+              const user = new Employ({
+                date :moment().format('L'),
+                name,age,city,salary,domain,postedby:req.user,         //req.user me user login ki details hai
+                
+                
+                image:{
+                  data: req.file.filename,
+                  contentType:'image/png',
+                  file_url: `https://adminaman.herokuapp.com/profile/${req.file.filename}`,
                 }
-    }
-} catch (error) {
-    res.status(400).send({error:"token is invalid user not found"})
-}
-        
-})
+              });
+              user.save()
+              .then(()=>res.json({
+                success: 1,
+                user
+              }))
+              
+            }
+          }
+        } catch (error) {
+            res.status(400).send({error:"token is invalid user not found"})
+          }
+          }
+          })
+  })
 
 
 router.get("/get/:id",checkauth,async(req,res)=>{
