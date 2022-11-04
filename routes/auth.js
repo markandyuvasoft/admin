@@ -264,7 +264,7 @@ const data={
 
 
 
-authrouter.put("/updateUser/:id",async(req,res)=>{
+authrouter.put("/updateUser/:id",checkauth,async(req,res)=>{
 
   try {
 
