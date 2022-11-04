@@ -111,9 +111,9 @@ const storage = multer.diskStorage({
   
   const upload = multer({
     storage: storage
-  }).single('profile')
+  }).single('image')
   
-  router.use('/profile', express.static('upload/images'));
+  router.use('/image', express.static('upload/images'));
   router.post("/post",checkauth ,async (req, res) => {
     upload(req,res,(err)=>{
   
@@ -148,7 +148,7 @@ const storage = multer.diskStorage({
                 image:{
                   data: req.file.filename,
                   contentType:'image/png',
-                  file_url: `https://adminaman.herokuapp.com/profile/${req.file.filename}`,
+                  file_url: `https://adminaman.herokuapp.com/image/${req.file.filename}`,
                 }
               });
               user.save()
