@@ -218,10 +218,11 @@ router.get("/all",[checkauth,adminauth],async(req,res)=>{
 router.put("/update/:id",checkauth,async(req,res)=>{
 
     try{
-     
+      const {  name, age ,city, salary ,date,domain,image} = req.body;
     const _id= req.params.id
 
     const getid= await Employ.findByIdAndUpdate(_id,req.body,{
+      image:image.name,
     new:true
      })
 
