@@ -243,7 +243,7 @@ const data={
       "_id":req.user._id,
       "name": req.user.name,
       "email":req.user.email,
-      "password":req.user.password,
+      "password":req.user.password, 
       "cpassword":req.user.cpassword,
       "phone": req.user.phone,
       "gender": req.user.gender,

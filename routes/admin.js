@@ -66,6 +66,7 @@ adminrouter.get("/allUser",[checkauth,adminauth],async(req,res)=>{
     
       const get = await User.find({})
 
+      
       res.status(200).send(get)
 
   } catch (error) {

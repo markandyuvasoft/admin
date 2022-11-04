@@ -88,8 +88,7 @@ const router=express.Router()
 //     }
 // } catch (error) {
 //     res.status(400).send({error:"token is invalid user not found"})
-// }
-        
+// } 
 // })
 
 
@@ -99,11 +98,11 @@ const storage = multer.diskStorage({
       cb(null, file.originalname)
     }
   })
-  
   const upload = multer({
     storage: storage
   }).single('image')
   
+//post method start...........................................................
   router.use('/image', express.static('upload/images'));
   router.post("/post",checkauth ,async (req, res) => {
     upload(req,res,async (err)=>{
@@ -159,8 +158,11 @@ const storage = multer.diskStorage({
           }
           })
   })
+//post method end...........................................................
 
 
+
+//get method by id start.................................
 router.get("/get/:id",checkauth,async(req,res)=>{
 
     try{
@@ -176,6 +178,8 @@ router.get("/get/:id",checkauth,async(req,res)=>{
         res.status(400).send(err)
     }
 })
+//get method by id end.....................................
+
 
 //get method start......................................
 router.get("/get",checkauth,async(req,res)=>{
@@ -194,7 +198,7 @@ router.get("/get",checkauth,async(req,res)=>{
 //get method end......................................
 
 
-//ALL USER DATA SHOW START.............................
+//ALL USER DATA SHOW ONLY ANDMIN AND AUTH START.............................
 router.get("/all",[checkauth,adminauth],async(req,res)=>{
 
     try{
