@@ -215,27 +215,61 @@ router.get("/all",[checkauth,adminauth],async(req,res)=>{
 //ALL USER DATA SHOW END.............................
 
 //put method start......................................
-router.put("/update/:id",checkauth,async(req,res)=>{
+// router.put("/update/:id",checkauth,async(req,res)=>{
 
-    try{
-      const {  name, age ,city, salary ,date,domain,image} = req.body;
-    const _id= req.params.id
+//     try{
+     
+//     const _id= req.params.id
 
-    const getid= await Employ.findByIdAndUpdate(_id,req.body,{
-      image:{
-        data:image.name,
-        contentType:'image/png',
-        file_url: `http://localhost:3000/profile/${image.name}`,
-      },
-    new:true
-     })
+//     const getid= await Employ.findByIdAndUpdate(_id,req.body,{
+//     new:true
+//      })
 
-    res.status(200).send(getid)
-    }
-    catch(err)
+//     res.status(200).send(getid)
+//     }
+//     catch(err)
+//     {
+//         res.status(500).send(err)
+//     }
+// })
+
+router.put("/update/:id", checkauth, async (req, res) => {
+
+  upload(req,res,async (err)=>{
+    if(err)
     {
-        res.status(500).send(err)
-    }
+        console.log(err);
+    }else{
+        try {
+          const {  name, age ,city, salary ,date,domain} = req.body;
+          const _id= req.params.id
+          const image= req.file
+
+          var user = await Employ.findByIdAndUpdate(_id,{
+            name:req.body.name,
+            age:req.body.age,
+            city:req.body.city,
+            salary:req.body.salary,
+            domain:req.body.domain,
+            image:{
+              data: req.file.filename,
+              contentType:'image/png',
+              file_url: `https://adminaman.herokuapp.com/image/${req.file.filename}`,
+            },
+            new:true
+          })
+          // console.log(user);
+          user.save()
+          .then(()=>res.json({
+            success: 1,
+            user
+          }))
+          
+        } catch (error) {
+          res.status(400).send({error:"token is invalid user not found"})
+        }
+      }
+    })
 })
 //put method end......................................
 
