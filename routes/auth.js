@@ -271,7 +271,7 @@ authrouter.put("/updateUser/:id",checkauth,async(req,res)=>{
 
       new: true
     })
-    getid.isAdmin=undefined, getid.token=undefined,  getid.isVarified=undefined
+    getid.isAdmin=undefined, getid.token=undefined,  getid.isVarified=undefined, getid.password=undefined,getid.cpassword=undefined
    
     res.status(200).send(getid)
     
