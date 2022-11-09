@@ -238,7 +238,7 @@ authrouter.get('/userProfile', checkauth, async (req, res) => {
     const details = await User.find({ _id: req.user._id })
 
     if (details) {
-
+      // const data=[{
 const data=[{
       "_id":req.user._id,
       "name": req.user.name,
