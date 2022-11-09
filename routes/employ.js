@@ -166,19 +166,13 @@ const storage = multer.diskStorage({
 router.get("/get/:id",checkauth,async(req,res)=>{
 
     try{
-      const userdata= await User.findOne(req.body.isVarified)
-      
-      if(userdata.isVarified===0){
 
-        res.status(400).send({message:"you are not allow by admin"})
-    }else{
-     
     const _id= req.params.id
 
     const getid= await Employ.findById(_id)
 
     res.status(200).send(getid)
-    }
+    
   }
     catch(err)
     {
@@ -192,17 +186,11 @@ router.get("/get/:id",checkauth,async(req,res)=>{
 router.get("/get",checkauth,async(req,res)=>{
 
     try{
-      const userdata= await User.findOne(req.body.isVarified)
-
-      if(userdata.isVarified===0){
-
-      res.status(400).send({message:"you are not allow by admin"})
-    }else{
 
     const get= await  Employ.find({postedby:req.user._id}) .populate("postedby", "_id name")
 
     res.status(200).send(get)
-    }
+    
   }
     catch(err)
     {
