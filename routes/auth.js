@@ -239,7 +239,7 @@ authrouter.get('/userProfile', checkauth, async (req, res) => {
 
     if (details) {
 
-const data={
+const data=[{
       "_id":req.user._id,
       "name": req.user.name,
       "email":req.user.email,
@@ -249,7 +249,7 @@ const data={
       "gender": req.user.gender,
       "address":req.user.address,
       "age": req.user.age,
-}
+}]
       res.status(200).send({ success: "user details..", data })
     }
     else {
