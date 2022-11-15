@@ -154,6 +154,7 @@ const storage = multer.diskStorage({
           }
         } catch (error) {
             res.status(400).send({error:"token is invalid user not found"})
+            // res.status(400).send({error:"token is invalid user not found"})
           }
           }
           })
