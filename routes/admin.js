@@ -11,6 +11,7 @@ import Employ from "../models/employ.js";
 
 
 const adminrouter = express.Router()
+// const adminrouter = express.Router()
 
 //BCRYPT PASSWORD USE THIS METHOD START
 const secure2 = async (password) => {
